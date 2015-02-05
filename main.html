@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Tiny's Blog</title>
@@ -8,49 +9,39 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
+
 <body>
-<div class="bg">
-        <img src="images/big_background.jpg">
-    </div>
     <div class="wrap">
         <div class="container">
-            <div class="main">
-                <div class="ball red"></div>
-                <div class="ball white"></div>
-                <div class="ball black"></div>
-                <div class="ball yellow"></div>
-                <div class="ball gray"></div>
-                <div class="ball c1"></div>
-                <div class="ball c2"></div>
-                <div class="ball c3"></div>
-                <div class="ball c4"></div>
-                <div class="ball c5"></div>
-                <div class="word t">
-                    <div class="top"></div>
-                    <div class="bottom"></div>
-                </div>
-                <div class="word i">
-                    <div class="top"></div>
-                    <div class="center"></div>
-                    <div class="bottom"></div>
-                </div>
-                <div class="word n">
-                    <div class="left"></div>
-                    <div class="center"></div>
-                    <div class="right"></div>
-                </div>
-                <div class="word y">
-                    <div class="left"></div>
-                    <div class="right"></div>
-                    <div class="bottom"></div>
-                </div>
-                <div class="desk">
-                    <div class="left"></div>
-                    <div class="center"></div>
-                    <div class="right"></div>
-                </div>
+            <div class="main" id="main">
+                <div class="box box1"></div>
+                <div class="box box2"></div>
+                <div class="box box3"></div>
+                <div class="box box4"></div>
+                <div class="box box5" id="carousel">Carousel</div>
+                <div class="box box6"></div>
+                <div class="box box7"></div>
+                <div class="box box8"></div>
+                <div class="box box9"></div>
             </div>
         </div>
     </div>
+    <script>
+    var isCarouse = false;
+        main = document.querySelector('#main'),
+        carousel = document.querySelector('#carousel'),
+        carouselOnClick = function(event){
+            if(isCarouse){
+                isCarouse = false;
+                main.className = 'main';
+            }else{
+                isCarouse = true;
+                main.className = 'main carousel';
+            }
+        };
+
+        carousel.addEventListener('click', carouselOnClick, false);
+    </script>
 </body>
+
 </html>

@@ -39,10 +39,10 @@ body {
     position: absolute;
     left: -200px;
     top: -150px;
-    -webkit-transform: translateZ( -288px);
-    -moz-transform: translateZ( -288px);
-    -o-transform: translateZ( -288px);
-    transform: translateZ( -288px);
+    -webkit-transform: translateZ( -412px);
+    -moz-transform: translateZ( -412px);
+    -o-transform: translateZ( -412px);
+    transform: translateZ( -412px);
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
@@ -69,10 +69,6 @@ body {
 .box:nth-child(even) {
     background-color: rgba(185, 154, 189, 0.5);
 }
-/*.box:nth-child(3n) {
-    background-color: rgba(177, 92, 86, 0.5);
-}
-*/
 .box1 {
     top: 0;
     left: 0;
@@ -109,61 +105,161 @@ body {
     top: 300px;
     left: 400px;
 }
-.carousel .box {
+.carouselX .box {
     left: 199px;
     top: 149px;
 }
-.carousel .box:nth-child(5) {
-    -webkit-transform: rotateY( 0deg) translateZ( 288px);
-    -moz-transform: rotateY( 0deg) translateZ( 288px);
-    -o-transform: rotateY( 0deg) translateZ( 288px);
-    transform: rotateY( 0deg) translateZ( 288px);
+.carouselX .box:nth-child(1) {
+    -webkit-transform: rotateY( 200deg) translateZ( 412px);
+    -moz-transform: rotateY( 200deg) translateZ( 412px);
+    -o-transform: rotateY( 200deg) translateZ( 412px);
+    transform: rotateY( 200deg) translateZ( 412px);
 }
-.carousel .box:nth-child(6) {
-    -webkit-transform: rotateY( 40deg) translateZ( 288px);
-    -moz-transform: rotateY( 40deg) translateZ( 288px);
-    -o-transform: rotateY( 40deg) translateZ( 288px);
-    transform: rotateY( 40deg) translateZ( 288px);
+.carouselX .box:nth-child(2) {
+    -webkit-transform: rotateY( 240deg) translateZ( 412px);
+    -moz-transform: rotateY( 240deg) translateZ( 412px);
+    -o-transform: rotateY( 240deg) translateZ( 412px);
+    transform: rotateY( 240deg) translateZ( 412px);
 }
-.carousel .box:nth-child(7) {
-    -webkit-transform: rotateY( 80deg) translateZ( 288px);
-    -moz-transform: rotateY( 80deg) translateZ( 288px);
-    -o-transform: rotateY( 80deg) translateZ( 288px);
-    transform: rotateY( 80deg) translateZ( 288px);
+.carouselX .box:nth-child(3) {
+    -webkit-transform: rotateY( 280deg) translateZ( 412px);
+    -moz-transform: rotateY( 280deg) translateZ( 412px);
+    -o-transform: rotateY( 280deg) translateZ( 412px);
+    transform: rotateY( 280deg) translateZ( 412px);
 }
-.carousel .box:nth-child(8) {
-    -webkit-transform: rotateY( 120deg) translateZ( 288px);
-    -moz-transform: rotateY( 120deg) translateZ( 288px);
-    -o-transform: rotateY( 120deg) translateZ( 288px);
-    transform: rotateY( 120deg) translateZ( 288px);
+.carouselX .box:nth-child(4) {
+    -webkit-transform: rotateY( 320deg) translateZ( 412px);
+    -moz-transform: rotateY( 320deg) translateZ( 412px);
+    -o-transform: rotateY( 320deg) translateZ( 412px);
+    transform: rotateY( 320deg) translateZ( 412px);
 }
-.carousel .box:nth-child(9) {
-    -webkit-transform: rotateY( 160deg) translateZ( 288px);
-    -moz-transform: rotateY( 160deg) translateZ( 288px);
-    -o-transform: rotateY( 160deg) translateZ( 288px);
-    transform: rotateY( 160deg) translateZ( 288px);
+.carouselX .box:nth-child(5) {
+    -webkit-transform: rotateY( 0deg) translateZ( 412px);
+    -moz-transform: rotateY( 0deg) translateZ( 412px);
+    -o-transform: rotateY( 0deg) translateZ( 412px);
+    transform: rotateY( 0deg) translateZ( 412px);
 }
-.carousel .box:nth-child(1) {
-    -webkit-transform: rotateY( 200deg) translateZ( 288px);
-    -moz-transform: rotateY( 200deg) translateZ( 288px);
-    -o-transform: rotateY( 200deg) translateZ( 288px);
-    transform: rotateY( 200deg) translateZ( 288px);
+.carouselX .box:nth-child(6) {
+    -webkit-transform: rotateY( 40deg) translateZ( 412px);
+    -moz-transform: rotateY( 40deg) translateZ( 412px);
+    -o-transform: rotateY( 40deg) translateZ( 412px);
+    transform: rotateY( 40deg) translateZ( 412px);
 }
-.carousel .box:nth-child(2) {
-    -webkit-transform: rotateY( 240deg) translateZ( 288px);
-    -moz-transform: rotateY( 240deg) translateZ( 288px);
-    -o-transform: rotateY( 240deg) translateZ( 288px);
-    transform: rotateY( 240deg) translateZ( 288px);
+.carouselX .box:nth-child(7) {
+    -webkit-transform: rotateY( 80deg) translateZ( 412px);
+    -moz-transform: rotateY( 80deg) translateZ( 412px);
+    -o-transform: rotateY( 80deg) translateZ( 412px);
+    transform: rotateY( 80deg) translateZ( 412px);
 }
-.carousel .box:nth-child(3) {
-    -webkit-transform: rotateY( 280deg) translateZ( 288px);
-    -moz-transform: rotateY( 280deg) translateZ( 288px);
-    -o-transform: rotateY( 280deg) translateZ( 288px);
-    transform: rotateY( 280deg) translateZ( 288px);
+.carouselX .box:nth-child(8) {
+    -webkit-transform: rotateY( 120deg) translateZ( 412px);
+    -moz-transform: rotateY( 120deg) translateZ( 412px);
+    -o-transform: rotateY( 120deg) translateZ( 412px);
+    transform: rotateY( 120deg) translateZ( 412px);
 }
-.carousel .box:nth-child(4) {
-    -webkit-transform: rotateY( 320deg) translateZ( 288px);
-    -moz-transform: rotateY( 320deg) translateZ( 288px);
-    -o-transform: rotateY( 320deg) translateZ( 288px);
-    transform: rotateY( 320deg) translateZ( 288px);
+.carouselX .box:nth-child(9) {
+    -webkit-transform: rotateY( 160deg) translateZ( 412px);
+    -moz-transform: rotateY( 160deg) translateZ( 412px);
+    -o-transform: rotateY( 160deg) translateZ( 412px);
+    transform: rotateY( 160deg) translateZ( 412px);
+}
+.split .box:nth-child(1) {
+    left: -30px;
+    top: -30px;
+}
+.split .box:nth-child(2) {
+    left: 200px;
+    top: -30px;
+}
+.split .box:nth-child(3) {
+    left: 430px;
+    top: -30px;
+}
+.split .box:nth-child(4) {
+    left: -30px;
+    top: 150px;
+}
+.split .box:nth-child(5) {
+    left: 200px;
+    top: 150px;
+}
+.split .box:nth-child(6) {
+    left: 430px;
+    top: 150px;
+}
+.split .box:nth-child(7) {
+    left: -30px;
+    top: 330px;
+}
+.split .box:nth-child(8) {
+    left: 200px;
+    top: 330px;
+}
+.split .box:nth-child(9) {
+    left: 430px;
+    top: 330px;
+}
+.carouselY {
+    -webkit-transform: translateZ( -275px);
+    -moz-transform: translateZ( -275px);
+    -o-transform: translateZ( -275px);
+    transform: translateZ( -275px);
+}
+.carouselY .box {
+    left: 199px;
+    top: 149px;
+}
+.carouselY .box:nth-child(9) {
+    -webkit-transform: rotateX( 0deg) translateZ( 275px);
+    -moz-transform: rotateX( 0deg) translateZ( 275px);
+    -o-transform: rotateX( 0deg) translateZ( 275px);
+    transform: rotateX( 0deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(1) {
+    -webkit-transform: rotateX( 40deg) translateZ( 275px);
+    -moz-transform: rotateX( 40deg) translateZ( 275px);
+    -o-transform: rotateX( 40deg) translateZ( 275px);
+    transform: rotateX( 40deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(2) {
+    -webkit-transform: rotateX( 80deg) translateZ( 275px);
+    -moz-transform: rotateX( 80deg) translateZ( 275px);
+    -o-transform: rotateX( 80deg) translateZ( 275px);
+    transform: rotateX( 80deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(3) {
+    -webkit-transform: rotateX( 120deg) translateZ( 275px);
+    -moz-transform: rotateX( 120deg) translateZ( 275px);
+    -o-transform: rotateX( 120deg) translateZ( 275px);
+    transform: rotateX( 120deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(4) {
+    -webkit-transform: rotateX( 160deg) translateZ( 275px);
+    -moz-transform: rotateX( 160deg) translateZ( 275px);
+    -o-transform: rotateX( 160deg) translateZ( 275px);
+    transform: rotateX( 160deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(5) {
+    -webkit-transform: rotateX( 200deg) translateZ( 275px);
+    -moz-transform: rotateX( 200deg) translateZ( 275px);
+    -o-transform: rotateX( 200deg) translatZ( 275px);
+    transform: rotateX( 200deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(6) {
+    -webkit-transform: rotateX( 240deg) translateZ( 275px);
+    -moz-transform: rotateX( 240deg) translateZ( 275px);
+    -o-transform: rotateX( 240deg) translateZ( 275px);
+    transform: rotateX( 240deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(7) {
+    -webkit-transform: rotateX( 280deg) translateZ( 275px);
+    -moz-transform: rotateX( 280deg) translateZ( 275px);
+    -o-transform: rotateX( 280deg) translateZ( 275px);
+    transform: rotateX( 280deg) translateZ( 275px);
+}
+.carouselY .box:nth-child(8) {
+    -webkit-transform: rotateX( 320deg) translateZ( 275px);
+    -moz-transform: rotateX( 320deg) translateZ( 275px);
+    -o-transform: rotateX( 320deg) translateZ( 275px);
+    transform: rotateX( 320deg) translateZ( 275px);
 }

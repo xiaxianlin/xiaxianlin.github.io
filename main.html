@@ -16,7 +16,7 @@
             <div class="main" id="main">
                 <div class="box box1" id="split">Split</div>
                 <div class="box box2"></div>
-                <div class="box box3"></div>
+                <div class="box box3" id="cube">Cube</div>
                 <div class="box box4"></div>
                 <div class="box box5" id="carouselX">CarouselX</div>
                 <div class="box box6"></div>
@@ -27,44 +27,28 @@
         </div>
     </div>
     <script>
-    var isCarouseX = false,
-        isCarouseY = false,
-        isSplit = false,
-        main = document.querySelector('#main'),
+    var main = document.querySelector('#main'),
         carouselX = document.querySelector('#carouselX'),
         carouselY = document.querySelector('#carouselY'),
+        cube = document.querySelector('#cube'),
         split = document.querySelector('#split'),
         carouselXOnClick = function(event){
-            if(hasClass(main, 'carouselX')){
-                isCarouseX = false;
-                main.className = 'main';
-            }else{
-                isCarouseX = true;
-                main.className = 'main carouselX';
-            }
+            onclick('carouselX');
         },
         carouselYOnClick = function(event){
-            if(hasClass(main, 'carouselY')){
-                isCarouseY = false;
-                main.className = 'main';
-            }else{
-                isCarouseY = true;
-                main.className = 'main carouselY';
-            }
+            onclick('carouselY');
+        },
+        cubeOnClick = function(event){
+            onclick('cube');
         },
         splitOnClick = function(event){
-            if(hasClass(main, 'split')){
-                isSplit = false;
-                main.className = 'main';
-            }else{
-                isSplit = true;
-                main.className = 'main split';
-            }
+            onclick('split');
         };
 
         carouselX.addEventListener('click', carouselXOnClick, false);
         carouselY.addEventListener('click', carouselYOnClick, false);
         split.addEventListener('click', splitOnClick, false);
+        cube.addEventListener('click', cubeOnClick, false);
 
         function hasClass(node, className){
             var cName = node.className;
@@ -72,6 +56,13 @@
                 return true;
             }else{
                 return false;
+            }
+        }
+        function onclick(className){
+            if(hasClass(main, className)){
+                main.className = 'main';
+            }else{
+                main.className = 'main ' + className;
             }
         }
     </script>

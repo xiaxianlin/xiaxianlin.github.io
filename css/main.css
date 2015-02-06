@@ -111,56 +111,38 @@ body {
 }
 .carouselX .box:nth-child(1) {
     -webkit-transform: rotateY( 200deg) translateZ( 412px);
-    -moz-transform: rotateY( 200deg) translateZ( 412px);
-    -o-transform: rotateY( 200deg) translateZ( 412px);
     transform: rotateY( 200deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(2) {
     -webkit-transform: rotateY( 240deg) translateZ( 412px);
-    -moz-transform: rotateY( 240deg) translateZ( 412px);
-    -o-transform: rotateY( 240deg) translateZ( 412px);
     transform: rotateY( 240deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(3) {
     -webkit-transform: rotateY( 280deg) translateZ( 412px);
-    -moz-transform: rotateY( 280deg) translateZ( 412px);
-    -o-transform: rotateY( 280deg) translateZ( 412px);
     transform: rotateY( 280deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(4) {
     -webkit-transform: rotateY( 320deg) translateZ( 412px);
-    -moz-transform: rotateY( 320deg) translateZ( 412px);
-    -o-transform: rotateY( 320deg) translateZ( 412px);
     transform: rotateY( 320deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(5) {
     -webkit-transform: rotateY( 0deg) translateZ( 412px);
-    -moz-transform: rotateY( 0deg) translateZ( 412px);
-    -o-transform: rotateY( 0deg) translateZ( 412px);
     transform: rotateY( 0deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(6) {
     -webkit-transform: rotateY( 40deg) translateZ( 412px);
-    -moz-transform: rotateY( 40deg) translateZ( 412px);
-    -o-transform: rotateY( 40deg) translateZ( 412px);
     transform: rotateY( 40deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(7) {
     -webkit-transform: rotateY( 80deg) translateZ( 412px);
-    -moz-transform: rotateY( 80deg) translateZ( 412px);
-    -o-transform: rotateY( 80deg) translateZ( 412px);
     transform: rotateY( 80deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(8) {
     -webkit-transform: rotateY( 120deg) translateZ( 412px);
-    -moz-transform: rotateY( 120deg) translateZ( 412px);
-    -o-transform: rotateY( 120deg) translateZ( 412px);
     transform: rotateY( 120deg) translateZ( 412px);
 }
 .carouselX .box:nth-child(9) {
     -webkit-transform: rotateY( 160deg) translateZ( 412px);
-    -moz-transform: rotateY( 160deg) translateZ( 412px);
-    -o-transform: rotateY( 160deg) translateZ( 412px);
     transform: rotateY( 160deg) translateZ( 412px);
 }
 .split .box:nth-child(1) {
@@ -201,8 +183,6 @@ body {
 }
 .carouselY {
     -webkit-transform: translateZ( -275px);
-    -moz-transform: translateZ( -275px);
-    -o-transform: translateZ( -275px);
     transform: translateZ( -275px);
 }
 .carouselY .box {
@@ -211,55 +191,81 @@ body {
 }
 .carouselY .box:nth-child(9) {
     -webkit-transform: rotateX( 0deg) translateZ( 275px);
-    -moz-transform: rotateX( 0deg) translateZ( 275px);
-    -o-transform: rotateX( 0deg) translateZ( 275px);
     transform: rotateX( 0deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(1) {
     -webkit-transform: rotateX( 40deg) translateZ( 275px);
-    -moz-transform: rotateX( 40deg) translateZ( 275px);
-    -o-transform: rotateX( 40deg) translateZ( 275px);
     transform: rotateX( 40deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(2) {
     -webkit-transform: rotateX( 80deg) translateZ( 275px);
-    -moz-transform: rotateX( 80deg) translateZ( 275px);
-    -o-transform: rotateX( 80deg) translateZ( 275px);
     transform: rotateX( 80deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(3) {
     -webkit-transform: rotateX( 120deg) translateZ( 275px);
-    -moz-transform: rotateX( 120deg) translateZ( 275px);
-    -o-transform: rotateX( 120deg) translateZ( 275px);
     transform: rotateX( 120deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(4) {
     -webkit-transform: rotateX( 160deg) translateZ( 275px);
-    -moz-transform: rotateX( 160deg) translateZ( 275px);
-    -o-transform: rotateX( 160deg) translateZ( 275px);
     transform: rotateX( 160deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(5) {
     -webkit-transform: rotateX( 200deg) translateZ( 275px);
-    -moz-transform: rotateX( 200deg) translateZ( 275px);
-    -o-transform: rotateX( 200deg) translatZ( 275px);
     transform: rotateX( 200deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(6) {
     -webkit-transform: rotateX( 240deg) translateZ( 275px);
-    -moz-transform: rotateX( 240deg) translateZ( 275px);
-    -o-transform: rotateX( 240deg) translateZ( 275px);
     transform: rotateX( 240deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(7) {
     -webkit-transform: rotateX( 280deg) translateZ( 275px);
-    -moz-transform: rotateX( 280deg) translateZ( 275px);
-    -o-transform: rotateX( 280deg) translateZ( 275px);
     transform: rotateX( 280deg) translateZ( 275px);
 }
 .carouselY .box:nth-child(8) {
     -webkit-transform: rotateX( 320deg) translateZ( 275px);
-    -moz-transform: rotateX( 320deg) translateZ( 275px);
-    -o-transform: rotateX( 320deg) translateZ( 275px);
     transform: rotateX( 320deg) translateZ( 275px);
+}
+.cube .box3 {
+    left: 200px;
+    top: 150px;
+    -webkit-transform: translateZ( 78px);
+    transform: translateZ( 78px);
+}
+.cube .box5 {
+    -webkit-transform: rotateX( -180deg) translateZ( 78px);
+    transform: rotateX( -180deg) translateZ( 78px);
+}
+.cube .box6 {
+    -webkit-transform: rotateY( 90deg) translateZ( -100px);
+    transform: rotateY( 90deg) translateZ( -100px);
+}
+.cube .box4 {
+    -webkit-transform: rotateY( -90deg) translateZ( -100px);
+    transform: rotateY( -90deg) translateZ( -100px);
+}
+.cube .box2 {
+    -webkit-transform: rotateX( 90deg) translateZ( -75px);
+    transform: rotateX( 90deg) translateZ( -75px);
+}
+.cube .box8 {
+    -webkit-transform: rotateX( -90deg) translateZ( -75px);
+    transform: rotateX( -90deg) translateZ( -75px);
+}
+.cube .box1 {
+    top: -30px;
+    left: 200px;
+    -webkit-transform: rotateX(-45deg);
+    transform: rotateX(-45deg);
+}
+.cube .box7 {
+    left: -30px;
+    top: 330px;
+    -webkit-transform: rotateY(45deg);
+    transform: rotateY(45deg);
+}
+.cube .box9 {
+    left: 430px;
+    top: 330px;
+    -webkit-transform: rotateY(-45deg);
+    transform: rotateY(-45deg);
 }

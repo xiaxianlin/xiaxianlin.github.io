@@ -35,7 +35,7 @@
         carouselY = document.querySelector('#carouselY'),
         split = document.querySelector('#split'),
         carouselXOnClick = function(event){
-            if(isCarouseX){
+            if(hasClass(main, 'carouselX')){
                 isCarouseX = false;
                 main.className = 'main';
             }else{
@@ -44,7 +44,7 @@
             }
         },
         carouselYOnClick = function(event){
-            if(isCarouseY){
+            if(hasClass(main, 'carouselY')){
                 isCarouseY = false;
                 main.className = 'main';
             }else{
@@ -53,7 +53,7 @@
             }
         },
         splitOnClick = function(event){
-            if(isSplit){
+            if(hasClass(main, 'split')){
                 isSplit = false;
                 main.className = 'main';
             }else{
@@ -65,6 +65,15 @@
         carouselX.addEventListener('click', carouselXOnClick, false);
         carouselY.addEventListener('click', carouselYOnClick, false);
         split.addEventListener('click', splitOnClick, false);
+
+        function hasClass(node, className){
+            var cName = node.className;
+            if(cName.indexOf(className) !== -1){
+                return true;
+            }else{
+                return false;
+            }
+        }
     </script>
 </body>
 

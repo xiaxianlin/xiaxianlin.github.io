@@ -17,8 +17,24 @@
   薰衣草紫----.b99abd
 */
 
-body {
-    background-color: #e5e5e5;
+.button-group {
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: 240px;
+}
+.button-group button {
+    display: block;
+    float: left;
+    width: 80px;
+    margin: 0 5px 10px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    line-height: 28px;
+    background-color: transparent;
+    outline: none;
 }
 .container {
     position: absolute;
@@ -62,48 +78,59 @@ body {
     text-align: center;
     line-height: 150px;
     font-size: 40px;
+    background: url(../images/bg.jpg);
+    opacity: 0.75;
 }
 .box:nth-child(odd) {
-    background-color: rgba(173, 212, 227, 0.5);
+    background-color: rgba(227, 215, 229, 0.75);
 }
 .box:nth-child(even) {
-    background-color: rgba(185, 154, 189, 0.5);
+    background-color: rgba(215, 229, 227, 0.75);
 }
 .box1 {
     top: 0;
     left: 0;
+    background-position: 0 0;
 }
 .box2 {
     top: 0;
     left: 200px;
+    background-position: -200px 0;
 }
 .box3 {
     top: 0;
     left: 400px;
+    background-position: -400px 0;
 }
 .box4 {
     top: 150px;
     left: 0;
+    background-position: 0 -150px;
 }
 .box5 {
     top: 150px;
     left: 200px;
+    background-position: -200px -150px;
 }
 .box6 {
     top: 150px;
     left: 400px;
+    background-position: -400px -150px;
 }
 .box7 {
     top: 300px;
     left: 0;
+    background-position: 0 -300px;
 }
 .box8 {
     top: 300px;
     left: 200px;
+    background-position: -200px -300px;
 }
 .box9 {
     top: 300px;
     left: 400px;
+    background-position: -400px -300px;
 }
 .carouselX .box {
     left: 199px;

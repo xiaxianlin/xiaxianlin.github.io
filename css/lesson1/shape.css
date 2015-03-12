@@ -1,0 +1,30 @@
+.shape .box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    -webkit-transition: all 3s ease;
+    transition: all 3s ease;
+    background-color: rgba(244, 157, 70, 0.8);
+    line-height: 100px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+.shape .fly{
+    left: 500px;
+    top: 500px;
+    border-radius: 50%;
+}
+.shape button{
+    display: block;
+    margin: 5px auto;
+    width: 100px;
+    line-height: 32px;
+    background-color: rgba(244, 157, 70, 0.8);
+    border-radius: 5px;
+    border: 0px solid;
+}

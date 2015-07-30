@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>链接无刷新跳转</title>
+</head>
+<body>
+    <button class="btn" id="newPage">新页面</button>
+    <script type="text/javascript">
+    var btn = document.getElementById('newPage');
+    btn.onclick = function(){
+        history.pushState({
+            title: '链接无刷新跳转',
+            url: window.location.href,
+        }, '这是一个新页面', 'http://xxl.github.io/pages/ajax.html');
+    }
+    window.onpopstate = function(e){
+        console.log(e);
+    }
+    </script>
+</body>
+</html>

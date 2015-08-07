@@ -1,3 +1,6 @@
+function log(x){
+    console.log(x);
+}
 function inherite(p) {
     if (p === null) throw TypeError();
     if (Object.create) return Object.create(p);
@@ -27,7 +30,7 @@ function merge(o, p) {
 
 function restrict(o, p) {
     for (var prop in o) {
-        if (!(var prop in p)) delete o[prop];
+        if (!(prop in p)) delete o[prop];
     }
     return o;
 }
@@ -64,9 +67,9 @@ function classof(o) {
     return Object.prototype.toString.call(o).slice(8, -1);
 }
 
-function enumeration(namesToValuse) {
+function enumeration(namesToValues) {
     var enumeration = function() {
-        throw "Can't Instantiate Enumerationss";
+        throw "Can't Instantiate Enumerations";
     };
 
     var proto = enumeration.prototype = {
@@ -83,10 +86,10 @@ function enumeration(namesToValuse) {
     };
 
     enumeration.values = [];
-    for (name in namesToValuse) {
+    for (var name in namesToValues) {
         var e = inherite(proto);
         e.name = name;
-        e.value = namesToValuse[name];
+        e.value = namesToValues[name];
         enumeration[name] = e;
         enumeration.values.push(e);
     }
@@ -101,7 +104,7 @@ function enumeration(namesToValuse) {
 }
 
 function defineSubclass(superclass, construtor, methods, statics) {
-    construtor.prototype = inherite(superclass.construtor);
+    construtor.prototype = inherite(superclass.prototype);
     construtor.prototype.construtor = construtor;
 
     if (methods) extend(construtor.prototype, methods);

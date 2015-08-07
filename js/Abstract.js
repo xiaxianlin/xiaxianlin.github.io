@@ -1,14 +1,21 @@
 //@import functions.js
+/**
+ * 抽象方法
+ * @return {[type]} [description]
+ */
 function abstractmethod() {
     throw new Error('abstract method');
 }
 
+/**
+ * 基础抽象类
+ */
 function AbstractSet() {
     throw new Error("Can't instantiate abstract classes.");
 }
 AbstractSet.prototype.contains = abstractmethod;
 
-var NotSet -= AbstractSet.extend(function NotSet(set) {
+var NotSet = AbstractSet.extend(function NotSet(set) {
     this.set = set;
 }, {
     contains: function(x) {
@@ -122,7 +129,7 @@ var AbstractWritableSet = AbstractEnumerableSet.extend(function() {
 
 var ArraySet = AbstractWritableSet.extend(function ArraySet() {
     this.values = [];
-    thia.add.apply(this, arguments);
+    this.add.apply(this, arguments);
 }, {
     contains: function(v) {
         return this.values.indexOf(v) !== -1;
@@ -131,7 +138,7 @@ var ArraySet = AbstractWritableSet.extend(function ArraySet() {
         return this.values.length;
     },
     foreach: function(f, c) {
-        this.values.foreach(f, c);
+        this.values.forEach(f, c);
     },
     add: function() {
         for (var i = 0; i < arguments.length; i++) {
@@ -150,3 +157,10 @@ var ArraySet = AbstractWritableSet.extend(function ArraySet() {
         return this;
     }
 });
+
+var set = new ArraySet('aa', 'bb', 'cc');
+set.add('dd');
+set.foreach(function(v){
+    log(v);
+});
+log(set.contains('ee'));

@@ -158,9 +158,51 @@ var ArraySet = AbstractWritableSet.extend(function ArraySet() {
     }
 });
 
-var set = new ArraySet('aa', 'bb', 'cc');
-set.add('dd');
-set.foreach(function(v){
-    log(v);
+function StringSet() {
+    this.set = Object.create(null);
+    this.n = 0;
+    this.add.apply(this, arguments);
+}
+
+StringSet.prototype = Object.create(AbstractWritableSet.prototype, {
+    construtor: {
+        value: StringSet
+    },
+    contains: {
+        value: function(x) {
+            return x in this.set;
+        }
+    },
+    size: {
+        value: function() {
+            return this.n;
+        }
+    },
+    foreach: {
+        value: function(f, c) {
+            Object.keys(this.set).forEach(f, c);
+        }
+    },
+    add: {
+        value: function() {
+            for (var i = 0; i < arguments.length; i++) {
+                if (!(arguments[i] in this.set)) {
+                    this.set[arguments[i]] = true;
+                    this.n++;
+                }
+            };
+            return this;
+        }
+    },
+    remove: {
+        value: function() {
+            for (var i = 0; i < arguments.length; i++) {
+                if (arguments[i] in this.set) {
+                    delete this.set[arguments[i]];
+                    this.n--;
+                }
+            };
+            return this;
+        }
+    }
 });
-log(set.contains('ee'));

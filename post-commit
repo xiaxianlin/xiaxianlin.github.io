@@ -1,0 +1,28 @@
+#!/bin/sh
+
+REPOS="$1"
+REV="$2"
+LOGFILE=/var/log/svn.log
+
+exec 1>>"$LOGFILE"
+exec 2>&1
+
+SVNLOOK=/usr/bin/svnlook
+TIME=$(date "+%Y-%m-%d %H:%M:%S")
+AUTHOR=$($SVNLOOK author -r $REV "$REPOS")
+CHANGEDFILES=$($SVNLOOK changed $REPOS) #修改的文件
+MESSAGE=$($SVNLOOK log -r $REV "$REPOS")    #提交时的备注信息，不建议用中文 
+#**************************************************************  
+function myecho() {   
+    echo "$TIME" "$*" 
+}
+
+
+myecho "**************************************************************" 
+myecho "提交版本：$REV 作者：$AUTHOR" 
+myecho "提交备注：$MESSAGE" 
+
+for file in CHANGEDFILES
+do
+    echo "$file"
+done

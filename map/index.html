@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>上海创业热力分布图</title>
+    <style type="text/css">
+    html,
+    body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        font-family: "微软雅黑";
+        font-size: 14px;
+    }
+    
+    #allmap {
+        width: 100%;
+        height: 100%;
+    }
+    
+    '
+ #container {
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="allmap"></div>
+    <div id="container"></div>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=I3ZhVxcolj2jejTqK3cyqmiR" type="text/javascript"></script>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=b41c30eb094a6a50e75d9efe5681ac74"></script>
+    <script type="text/javascript" src="addr.js"></script>
+    <script type="text/javascript">
+    var colors = ['#f49d46', '#add4e3', '#00b1cd', '#8ccdbe', '#005da4', '#e0c5a6', '#f8cfb2', '#f8ec8c', '#b15c56', '#d4dcdd', '#86b9d8', '#4e872f', '#8c9a37', '#d39a65', '#96918d', '#b99abd', '#f49d46', '#add4e3', '#00b1cd', '#8ccdbe', '#005da4', '#e0c5a6', '#f8cfb2', '#f8ec8c', '#b15c56', '#d4dcdd', '#86b9d8', '#4e872f', '#8c9a37', '#d39a65', '#96918d', '#b99abd'];
+    var amap = new AMap.Map('container', {
+        zoom: 12,
+        center: [121.472641, 31.231707]
+    });
+    var map = new BMap.Map("allmap");
+    var city = '上海';
+    map.centerAndZoom(city, 13);
+    map.addControl(new BMap.OverviewMapControl());
+    map.addControl(new BMap.NavigationControl());
+    map.enableScrollWheelZoom(true);
+    map.setMapStyle({
+        style: 'midnight',
+        features: ['point', 'land', 'water', 'building']
+    });
+    var index = 0;
+    var myGeo = new BMap.Geocoder();
+
+    function bdGEO() {
+        var add = adds[index];
+        geocodeSearch(add);
+        index++;
+    }
+
+    function geocodeSearch(add) {
+        if (index < adds.length) {
+            setTimeout(window.bdGEO, 100);
+        }
+        myGeo.getPoint(add, function(point) {
+            if (point) {
+                var address = new BMap.Point(point.lng, point.lat);
+                addMarker(address, new BMap.Label('', {
+                    offset: new BMap.Size(7.5, 10)
+                }));
+            }
+        }, city);
+    }
+    // 编写自定义函数,创建标注
+    function addMarker(point, label) {
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        marker.setLabel(label);
+    }
+
+    bdGEO();
+
+    AMap.service('AMap.DistrictSearch', function() { //回调函数
+        //实例化DistrictSearch
+        var districtSearch = new AMap.DistrictSearch({
+            level: 'city',
+            extensions: 'all',
+            subdistrict: 1
+        });
+        districtSearch.search('上海市市辖区', function(status, result) {
+            var dList = result.districtList[0].districtList;
+            dList.forEach(function(item, i) {
+                drawDistrict(city + '市' +item.name, colors[i]);
+            });
+        });
+
+        function drawDistrict(name, color) {
+            console.log(name);
+            var bdary = new BMap.Boundary();
+            bdary.get(name, function(rs) { //获取行政区域
+                var count = rs.boundaries.length; //行政区域的点有多少个
+                if (count === 0) {
+                    alert('未能获取当前输入行政区域');
+                    return;
+                }
+                var pointArray = [];
+                for (var i = 0; i < count; i++) {
+                    var ply = new BMap.Polygon(rs.boundaries[i], {
+                        strokeWeight: 3,
+                        strokeColor: 'red',
+                        fillColor: color,
+                        fillOpacity: 0.3
+                    }); //建立多边形覆盖物
+                    map.addOverlay(ply); //添加覆盖物
+                    pointArray = pointArray.concat(ply.getPath());
+                }
+            });
+        }
+
+
+    });
+    </script>
+</body>
+
+</html>

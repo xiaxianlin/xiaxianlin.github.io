@@ -1,0 +1,20 @@
+body {
+    overflow: hidden;
+    margin: 0;
+    background: #111111;
+    cursor: pointer;
+}
+
+p {
+    color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+    font-size: 18px;
+    font-family: 'Handlee', Helvetica, cursive;
+    text-align: center;
+    pointer-events: none;
+    letter-spacing: 2px;
+    transition: 0.2s opacity;
+}

@@ -4,19 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiny's Blog</title>
-    <link rel="shortcut icon" href="images/tiny.png" />
-    <link rel="icon" href="site/images/tiny.png" type="image/png" />
-    <link rel="stylesheet" type="text/css" href="site/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="site/css/index.css">
 </head>
 
 <body>
-    <div class="bg">
-        <img src="site/images/big_background.jpg">
+    <div class="1">
+        <div class="a">
+            <div class="cc">
+                <div id="abc" class="bb"></div>
+            </div>
+        </div>
     </div>
-    <a href="#" class="entry">Welcome to Tiny's blog</a>
-    <blockquote>The first problem for all of us, men and women, is not to lean, but to unlearn.</blockquote>
-    <script type="text/javascript" src="algorithmic/binaryTree/Structure.js"></script>
+    <script>
+        var element = document.getElementById('abc');
+        class Test {
+            static hasClassWithInParent(element, cls) {
+                var classList = element.className.split(' ');
+                var res = classList.indexOf(cls) !== -1;
+                if (!res && element.parentElement) {
+                    res = this.hasClassWithInParent(element.parentElement, cls);
+                }
+                return res;
+            }
+        }
+        var chk = Test.hasClassWithInParent(element, 'b');
+        console.log(chk);
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grid</title>
+    <style type="text/css">
+    .Grid {
+        /* create a grid container */
+        display: grid;
+        /* gutters between grid items */
+        grid-gap: 10px;
+        /* define 12 equally sized columns, 1fr = 1 fraction */
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-flow: dense;
+    }
+    /* visually hide the title */
+    
+    .Grid-title {
+        position: absolute;
+        width: 0;
+        height: 0;
+        clip: rect(0 0 0 0);
+    }
+    
+    .Story {
+        min-height: 150px;
+    }
+    /* colour the stories in */
+    
+    .Story:nth-of-type(1),
+    .Story:nth-of-type(2) {
+        background: lightsalmon;
+    }
+    
+    .Story:nth-of-type(n+3):nth-of-type(-n+7) {
+        background: darkseagreen;
+    }
+    
+    .Story:nth-of-type(n+8):nth-of-type(-n+11) {
+        background: steelblue;
+    }
+    
+    .FastNews {
+        grid-row: 1 / span 1;
+        grid-column: 10 / span 3;
+        background: tomato;
+    }
+    
+    .Story:nth-of-type(1) {
+        grid-column: span 4;
+    }
+    
+    .Story:nth-of-type(2) {
+        grid-column: span 5;
+    }
+    /* select stories 3-6 */
+    
+    .Story:nth-of-type(n+3):nth-of-type(-n+6) {
+        grid-column: span 3;
+    }
+    
+    .Story:nth-of-type(7) {
+        grid-column: span 6;
+    }
+    
+    .Story:nth-of-type(6) {
+        /* wrap to the first grid line */
+        grid-column: 1 / span 3 !important;
+    }
+    /* select stories 8-11 */
+    
+    .Story:nth-of-type(n+8):nth-of-type(-n+11) {
+        grid-column: 10 / span 3;
+    }
+    /* select stories 3-7 */
+    
+    .Story:nth-of-type(n+3):nth-of-type(-n+7) {
+        grid-row: span 2;
+    }
+    </style>
+</head>
+
+<body>
+    <section class="Grid Grid--headlines">
+        <article class="Story">Story1</article>
+        <article class="Story">Story2</article>
+        <article class="Story">Story3</article>
+        <article class="Story">Story4</article>
+        <article class="Story">Story5</article>
+        <article class="Story">Story6</article>
+        <article class="Story">Story7</article>
+        <article class="Story">Story8</article>
+        <article class="Story">Story9</article>
+        <article class="Story">Story10</article>
+        <article class="Story">Story11</article>
+        <section class="FastNews">FastFT</section>
+    </section>
+</body>
+
+</html>

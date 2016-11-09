@@ -7,27 +7,8 @@
 </head>
 
 <body>
-    <div class="1">
-        <div class="a">
-            <div class="cc">
-                <div id="abc" class="bb"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        var element = document.getElementById('abc');
-        class Test {
-            static hasClassWithInParent(element, cls) {
-                var classList = element.className.split(' ');
-                var res = classList.indexOf(cls) !== -1;
-                if (!res && element.parentElement) {
-                    res = this.hasClassWithInParent(element.parentElement, cls);
-                }
-                return res;
-            }
-        }
-        var chk = Test.hasClassWithInParent(element, 'b');
-        console.log(chk);
+    <script src="format.js"></script>
+    <script type="text/javascript">
     </script>
 </body>
 

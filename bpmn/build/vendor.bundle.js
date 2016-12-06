@@ -1,7 +1,38 @@
 var vendor_library =
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp_name__library"];
+/******/ 	window["webpackJsonp_name__library"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+/******/ 		if(moreModules[0]) {
+/******/ 			installedModules[0] = 0;
+/******/ 			return __webpack_require__(0);
+/******/ 		}
+/******/ 	};
+
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		1:0
+/******/ 	};
 
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -27,6 +58,29 @@ var vendor_library =
 /******/ 		return module.exports;
 /******/ 	}
 
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+
+/******/ 			script.src = __webpack_require__.p + "chunk." + chunkId + ".js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
 
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -50,8 +104,8 @@ var vendor_library =
 
 	__webpack_require__(/*! react */1);
 	__webpack_require__(/*! react-dom */32);
-	__webpack_require__(/*! react-konva */178);
-	module.exports = __webpack_require__(/*! konva */179);
+	__webpack_require__(/*! react-konva */180);
+	module.exports = __webpack_require__(/*! konva */181);
 
 
 /***/ },
@@ -21993,7 +22047,9 @@ var vendor_library =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
 
 /***/ },
-/* 178 */
+/* 178 */,
+/* 179 */,
+/* 180 */
 /*!******************************************!*\
   !*** ./~/react-konva/src/react-konva.js ***!
   \******************************************/
@@ -22002,7 +22058,7 @@ var vendor_library =
 	// Adapted from ReactART:
 	// https://github.com/reactjs/react-art
 
-	var Konva = __webpack_require__(/*! konva */ 179);
+	var Konva = __webpack_require__(/*! konva */ 181);
 	var React = __webpack_require__(/*! react/lib/React */ 2);
 
 	var ReactInstanceMap = __webpack_require__(/*! react-dom/lib/ReactInstanceMap */ 116);
@@ -22406,7 +22462,7 @@ var vendor_library =
 
 
 /***/ },
-/* 179 */
+/* 181 */
 /*!**************************!*\
   !*** ./~/konva/konva.js ***!
   \**************************/
@@ -22665,8 +22721,8 @@ var vendor_library =
 	            // Node. Does not work with strict CommonJS, but
 	            // only CommonJS-like enviroments that support module.exports,
 	            // like Node.
-	            var Canvas = __webpack_require__(/*! canvas */ 180);
-	            var jsdom = __webpack_require__(/*! jsdom */ 181).jsdom;
+	            var Canvas = __webpack_require__(/*! canvas */ 182);
+	            var jsdom = __webpack_require__(/*! jsdom */ 183).jsdom;
 
 	            Konva.window = jsdom('<!DOCTYPE html><html><head></head><body></body></html>').defaultView;
 	            Konva.document = Konva.window.document;
@@ -38804,7 +38860,7 @@ var vendor_library =
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 180 */
+/* 182 */
 /*!************************!*\
   !*** canvas (ignored) ***!
   \************************/
@@ -38813,7 +38869,7 @@ var vendor_library =
 	/* (ignored) */
 
 /***/ },
-/* 181 */
+/* 183 */
 /*!***********************!*\
   !*** jsdom (ignored) ***!
   \***********************/

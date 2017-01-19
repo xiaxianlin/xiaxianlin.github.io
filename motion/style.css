@@ -85,3 +85,15 @@ header {
 p::first-letter {
     font-size: 150%;
 }
+
+@media screen and (max-width: 1440px) {
+    html {
+        font-size: 70px;
+    }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1800px) {
+    html {
+        font-size: 80px;
+    }
+}

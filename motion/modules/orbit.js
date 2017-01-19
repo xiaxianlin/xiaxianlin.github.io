@@ -33,7 +33,7 @@ Modules.set('orbit', function(canvas, ctx) {
         angle = 0,
         centerX = canvas.width / 2,
         centerY = canvas.height / 2,
-        raduis = 35,
+        raduis = canvas.width * 0.35,
         speed = 0.05;
 
     function drawFrame() {

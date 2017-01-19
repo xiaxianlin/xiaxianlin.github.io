@@ -1,7 +1,7 @@
 Modules.set('lineWeight', function(canvas, ctx) {
     var centerX = canvas.width / 2,
         centerY = canvas.height / 2,
-        raduis = 30,
+        raduis = canvas.width * 0.3,
         weight = 1,
         dir = 1,
         minWeight = 0,

@@ -27,6 +27,7 @@ Ball.prototype.draw = function(context) {
     }
     context.restore();
 };
+
 Modules.set('orbit', function(canvas, ctx) {
     var ball = new Ball(8, '#fff'),
         angle = 0,

@@ -7,7 +7,7 @@ function Ball(raduis, color) {
     this.ratation = 0;
     this.scaleX = 1;
     this.scaleY = 1;
-    this.color = utils.parseColor(color);
+    this.color = color;
     this.lineWidth = 1;
 }
 
@@ -27,3 +27,27 @@ Ball.prototype.draw = function(context) {
     }
     context.restore();
 };
+Modules.set('orbit', function(canvas, ctx) {
+    var ball = new Ball(8, '#fff'),
+        angle = 0,
+        centerX = canvas.width / 2,
+        centerY = canvas.height / 2,
+        raduis = 35,
+        speed = 0.05;
+
+    function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, raduis, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#fff';
+        ctx.stroke();
+        ball.x = centerX + Math.sin(angle) * raduis;
+        ball.y = centerY + Math.cos(angle) * raduis;
+        angle += speed;
+        ball.draw(ctx);
+    }
+    return {
+        draw: drawFrame
+    }
+});

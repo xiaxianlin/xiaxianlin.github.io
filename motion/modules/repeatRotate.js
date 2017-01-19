@@ -31,7 +31,7 @@ Modules.set('repeatRotate', function(canvas, ctx) {
         len = 4,
         speed = 1.5,
         initRotation = 45,
-        maxRotation = 90,
+        maxRotation = 100,
         rects = [];
 
     for (var i = 0; i < len; i++) {
@@ -39,7 +39,7 @@ Modules.set('repeatRotate', function(canvas, ctx) {
         var count = (maxRotation - initRotation) / speed;
         var rect = new Rectangle(sx, sy, sw, sh);
         rect.maxRotation = maxRotation - rate;
-        rect.minRotation = rate;
+        rect.minRotation = initRotation - (rect.maxRotation - initRotation);
         rect.speed = (rect.maxRotation - initRotation) / count;
         rects.push(rect);
     }

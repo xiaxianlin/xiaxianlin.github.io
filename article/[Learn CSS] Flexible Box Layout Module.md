@@ -136,7 +136,7 @@
 - none: 0 0 auto
 - initial: 0 1 auto
 - auto: 1 1 auto
-- <positive-number>: <positive-number> 1 0
+- \<positive-number>: \<positive-number> 1 0
 
 ## Alignment(排列)
 ### margin : auto

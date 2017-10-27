@@ -473,7 +473,6 @@ S.Shape = (function() {
 
     function compensate() {
         var a = S.Drawing.getArea()
-
         cx = a.w / 2 - width / 2
         cy = a.h / 2 - height / 2
     }
@@ -481,7 +480,6 @@ S.Shape = (function() {
     return {
         shuffleIdle: function() {
             var a = S.Drawing.getArea()
-
             for (var d = 0; d < dots.length; d++) {
                 if (!dots[d].s) {
                     dots[d].move({
@@ -495,7 +493,6 @@ S.Shape = (function() {
         switchShape: function(n, fast) {
             var size,
                 a = S.Drawing.getArea()
-
             width = n.w
             height = n.h
 

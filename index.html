@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: default
+---
 
-<head>
-    <meta charset="UTF-8">
-    <title>Tiny</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
-    <link rel="stylesheet" href="public/styles/type.css">
-</head>
+<div class="posts">
+  {% for post in site.posts %}
+    <article class="post">
 
-<body>
-    <canvas class="canvas"></canvas>
-    <section class="action">
-        <a href="http://xiaxianlin.com/ui" target="_blank">UI Component</a>
-        <a href="http://xiaxianlin.com/motion" target="_blank">Motion Table</a>
-    </section>
-    <script type="text/javascript" src="public/scripts/type.js"></script>
-</body>
+      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
 
-</html>
+      <div class="entry">
+        {{ post.excerpt }}
+      </div>
+
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+    </article>
+  {% endfor %}
+</div>

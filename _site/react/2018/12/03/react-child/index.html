@@ -1,0 +1,1089 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tiny Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Children是React用来处理props.children的一个对象，一个提供了五个接口，分别是map, forEach, count, toArray, Only。">
+<meta name="keywords" content="Jekyll, NexT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React.Children">
+<meta property="og:url" content="http://localhost:4000/react/2018/12/03/react-child/">
+<meta property="og:site_name" content="Tiny Blog">
+<meta property="og:description" content="Children是React用来处理props.children的一个对象，一个提供了五个接口，分别是map, forEach, count, toArray, Only。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/assets/images/articles/react_children.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React.Children">
+<meta name="twitter:description" content="Children是React用来处理props.children的一个对象，一个提供了五个接口，分别是map, forEach, count, toArray, Only。">
+<meta name="twitter:image" content="/assets/images/articles/react_children.png">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>React.Children | Tiny Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tiny Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/react/2018/12/03/react-child/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiny Sha">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiny Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            React.Children
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T00:00:00+08:00">
+                2018-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/React" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>Children 是 React 用来处理 props.children 的一个对象，一个提供了五个接口，分别是 map, forEach, count, toArray, Only。</p>
+</blockquote>
+
+<h3 id="处理-children-不同类型的值">处理 children 不同类型的值</h3>
+
+<blockquote>
+  <p>在自定义组件中可以对 children 再加工，所以不管传递什么都能拿到，主要在 native 元素里面的对不同的值有不同的处理结果。</p>
+</blockquote>
+
+<ol>
+  <li>true, false, undefined, null 以及空字符串</li>
+</ol>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="kc">true</span><span class="p">}&lt;</span><span class="err">/</span><span class="nt">div</span><span class="p">&gt;</span> 		// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 		// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="kc">null</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 		// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="kc">undefined</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 	// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="s1">''</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 			// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ol>
+  <li>数值或字符串类型</li>
+</ol>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="s1">'abc'</span><span class="p">}&lt;</span><span class="err">/</span><span class="nt">div</span><span class="p">&gt;</span> // output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>abc<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="mi">123</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> // output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>123<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="mi">0123</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> // error: 不是一个合法数字，如果数字0开头，必须是0x,0b,0o开头，且数字符合当前进制的数字
+</code></pre></td></tr></tbody></table></div></div>
+
+<ol>
+  <li>函数类型</li>
+</ol>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 函数在react里面是无法直接使用，但是可以在我们自定义的组件里使用。</span>
+<span class="kd">class</span> <span class="nx">Header</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">&lt;</span><span class="nt">header</span> <span class="na">className=</span><span class="s2">"App-header"</span><span class="p">&gt;</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">&lt;</span><span class="nc">Header</span> <span class="na">title=</span><span class="s2">"header"</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">text</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">text</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nc">Header</span><span class="p">&gt;</span>
+
+<span class="c1">//output</span>
+<span class="p">&lt;</span><span class="nt">header</span> <span class="na">className=</span><span class="s2">"App-header"</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>header<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ol>
+  <li>对象类型</li>
+</ol>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// react只接受react.element对象和迭代器对象这两类，其他类型需要自定义组件去处理。</span>
+<span class="c1">// 模拟一个元素对象</span>
+<span class="kd">const</span> <span class="nx">elememt</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="na">$typeof</span><span class="p">:</span> <span class="nb">Symbol</span><span class="p">.</span><span class="k">for</span><span class="p">(</span><span class="s1">'react.element'</span><span class="p">),</span>
+    <span class="na">type</span><span class="p">:</span> <span class="s1">'a'</span><span class="p">,</span>
+    <span class="na">ref</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">href</span><span class="p">:</span> <span class="s1">'http://www.baidu.com'</span><span class="p">,</span>
+        <span class="na">children</span><span class="p">:</span> <span class="s1">'百度'</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">element</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c1">// output:</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href=</span><span class="s2">"http://www.baidu.com"</span><span class="p">&gt;</span>百度<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c1">// 迭代器对象</span>
+<span class="kd">function</span> <span class="nx">createChildrenIterator</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="na">next</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">index</span><span class="o">++</span>
+                    <span class="k">return</span> <span class="p">{</span>
+                        <span class="na">value</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">key=</span><span class="si">{</span><span class="nx">index</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">data</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;,</span>
+                        <span class="na">done</span><span class="p">:</span> <span class="nx">index</span> <span class="o">===</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">iterator</span> <span class="o">=</span> <span class="nx">createChildrenIterator</span><span class="p">([</span><span class="s1">'create'</span><span class="p">,</span> <span class="s1">'remove'</span><span class="p">])</span>
+
+<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">iterator</span><span class="p">}&lt;</span><span class="err">/</span><span class="nt">div</span><span class="p">&gt;</span>
+// output:
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>create<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>remove<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ol>
+  <li>数组类型，遍历整个数组，然后按照以上 4 条规则处理。</li>
+</ol>
+
+<h3 id="部分源码赏析">部分源码赏析</h3>
+
+<p>在 ReactChildren 整个源码里面有一个核心对象 traverseContext，这个对象相对于建立了在遍历 children 时整个的上下文环境。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 这是traverseContext的数据结构</span>
+<span class="p">{</span>
+    <span class="nl">result</span><span class="p">:</span> <span class="nx">mapResult</span><span class="p">,</span> <span class="c1">// 数组，记录遍历过后的处理结果</span>
+    <span class="nx">keyPrefix</span><span class="p">:</span> <span class="nx">keyPrefix</span><span class="p">,</span>
+    <span class="nx">func</span><span class="p">:</span> <span class="nx">mapFunction</span><span class="p">,</span> <span class="c1">// 遍历时用到的处理函数，默认是child =&gt; child, 在map和forEach的时候手动传入，最后计算结果交给result。</span>
+    <span class="nx">context</span><span class="p">:</span> <span class="nx">mapContext</span><span class="p">,</span> <span class="c1">// 父级上下文对象，主要在当func返回一个数组时，进行子级遍历使用</span>
+    <span class="nx">count</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// 计数器</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>然后在来看 map 方法是怎么实现的。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// React.Children.map()</span>
+<span class="c1">// children就是组件的props.children</span>
+<span class="c1">// func是在遍历的时候我们处理的函数，默认函数中的this对象指向第三个参数context。</span>
+<span class="c1">// context是上下文环境，这个跟traverseContext不一样的，这个参数基本传入的是组件的this。</span>
+<span class="kd">function</span> <span class="nx">mapChildren</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 这里最有趣的就是除了null和undefined外其他的类型都可以被遍历。</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">children</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">children</span>
+    <span class="p">}</span>
+    <span class="c1">// 用来存储遍历后的处理结果</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">result</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">array</span><span class="p">,</span> <span class="nx">prefix</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">escapedPrefix</span> <span class="o">=</span> <span class="s1">''</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">prefix</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">escapedPrefix</span> <span class="o">=</span> <span class="nx">escapeUserProvidedKey</span><span class="p">(</span><span class="nx">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'/'</span>
+    <span class="p">}</span>
+    <span class="c1">// 创建整个遍历过程中的上下文对象</span>
+    <span class="c1">// 实际上这里有上下文对象池，每次都从队列的尾部拿一个处理，如果没有则创建新的，池里最多有10个。</span>
+    <span class="kd">const</span> <span class="nx">traverseContext</span> <span class="o">=</span> <span class="nx">getPooledTraverseContext</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">escapedPrefix</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span>
+    <span class="c1">// traverseAllChildren会返回遍历数量。</span>
+    <span class="c1">// mapSingleChildIntoContext是一个函数，这个函数用来处理traverseContext。</span>
+    <span class="nx">traverseAllChildren</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">mapSingleChildIntoContext</span><span class="p">,</span> <span class="nx">traverseContext</span><span class="p">)</span>
+    <span class="c1">// 清除traverseContext的数据，并返回池里。</span>
+    <span class="nx">releaseTraverseContext</span><span class="p">(</span><span class="nx">traverseContext</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>接下来是最核心的两个函数 traverseAllChildrenImpl，mapSingleChildIntoContext。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 首先来看看如何处理traverseContext</span>
+<span class="c1">// bookKeeping就是traverseContext</span>
+<span class="kd">function</span> <span class="nx">mapSingleChildIntoContext</span><span class="p">(</span><span class="nx">bookKeeping</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">childKey</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">keyPrefix</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bookKeeping</span>
+    <span class="c1">// 这里得到了我们处理的结果</span>
+    <span class="kd">let</span> <span class="nx">mappedChild</span> <span class="o">=</span> <span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">bookKeeping</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">)</span>
+    <span class="c1">// 因为允许返回数组，这时候我们可以进行很多有趣的操作。</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">childKey</span><span class="p">,</span> <span class="nx">c</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">mappedChild</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 省略部分代码...</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 然后再来看看最关键的traverseAllChildrenImpl</span>
+<span class="c1">// traverseAllChildrenImpl这个函数是实现了traverseAllChildren这个函数，只是nameSoFar为空字符串而已</span>
+<span class="c1">// 在map函数里callback = mapSingleChildIntoContext</span>
+<span class="kd">function</span> <span class="nx">traverseAllChildrenImpl</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">nameSoFar</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">traverseContext</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// some code...</span>
+    <span class="c1">// 当children为boolean,undefined,null,string,number是可以调用回调</span>
+    <span class="c1">// 或者children为对象并且是react的element或者protal时可以调用回调</span>
+    <span class="kd">let</span> <span class="nx">invokeCallback</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="c1">// 省略判断代码...</span>
+    <span class="c1">// 在这里可以很明显的看出来不管children是不是数组都可以进行遍历</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">invokeCallback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">traverseContext</span><span class="p">,</span> <span class="nx">children</span><span class="p">,</span> <span class="nx">nameSoFar</span> <span class="o">===</span> <span class="s1">''</span> <span class="p">?</span> <span class="nx">SEPARATOR</span> <span class="o">+</span> <span class="nx">getComponentKey</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span> <span class="nx">nameSoFar</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="p">}</span>
+    <span class="c1">// some code...</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">children</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// 处理数组，取出来之后进行递归处理</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">child</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">nextName</span> <span class="o">=</span> <span class="nx">nextNamePrefix</span> <span class="o">+</span> <span class="nx">getComponentKey</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+            <span class="nx">subtreeCount</span> <span class="o">+=</span> <span class="nx">traverseAllChildrenImpl</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">nextName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">traverseContext</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// 这里是最有趣的地方，这里表示children可以是迭代器对象。</span>
+        <span class="kd">const</span> <span class="nx">iteratorFn</span> <span class="o">=</span> <span class="nx">getIteratorFn</span><span class="p">(</span><span class="nx">children</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">iteratorFn</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">iterator</span> <span class="o">=</span> <span class="nx">iteratorFn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">children</span><span class="p">)</span>
+            <span class="kd">let</span> <span class="nx">step</span>
+            <span class="kd">let</span> <span class="nx">ii</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">step</span> <span class="o">=</span> <span class="nx">iterator</span><span class="p">.</span><span class="nx">next</span><span class="p">()).</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">child</span> <span class="o">=</span> <span class="nx">step</span><span class="p">.</span><span class="nx">value</span>
+                <span class="nx">nextName</span> <span class="o">=</span> <span class="nx">nextNamePrefix</span> <span class="o">+</span> <span class="nx">getComponentKey</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">ii</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">subtreeCount</span> <span class="o">+=</span> <span class="nx">traverseAllChildrenImpl</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">nextName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">traverseContext</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">'object'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 异常数据处理代码...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">subtreeCount</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h4 id="map的运行流程">map()的运行流程</h4>
+
+<p><img src="/assets/images/articles/react_children.png" alt="" /></p>
+
+<h4 id="剩余的几个接口简单介绍">剩余的几个接口简单介绍</h4>
+
+<ul>
+  <li>forEach()处理方式和 map()基本一致，只是把 mapSingleChildIntoContext 换成了 forEachSingleChild，而这个函数更简单</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 基本上回调一下后啥都不管</span>
+<span class="kd">function</span> <span class="nx">forEachSingleChild</span><span class="p">(</span><span class="nx">bookKeeping</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bookKeeping</span>
+    <span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">bookKeeping</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ul>
+  <li>toArray()也是跟 map()差不多，就等于 map(children, child =&gt; child)</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">toArray</span><span class="p">(</span><span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">child</span> <span class="o">=&gt;</span> <span class="nx">child</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">result</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ul>
+  <li>count()在 map()的基础，砍掉了回调和 traverseContext 的处理</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">countChildren</span><span class="p">(</span><span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">traverseAllChildren</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ul>
+  <li>only 是最简单，返回自身，只是做了一次合法校验而已</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">onlyChild</span><span class="p">(</span><span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">invariant</span><span class="p">(</span><span class="nx">isValidElement</span><span class="p">(</span><span class="nx">children</span><span class="p">),</span> <span class="s1">'React.Children.only expected to receive a single React element child.'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">children</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="一个-map的小玩法">一个 map()的小玩法</h3>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 首先定义个组件</span>
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="p">{</span> <span class="nx">children</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span>
+        <span class="kd">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">count</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">)</span> <span class="p">?</span> <span class="nx">item</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="p">:</span> <span class="nx">item</span>
+        <span class="p">})</span>
+        <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className=</span><span class="s2">"app"</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">content</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">&lt;</span><span class="nc">App</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p1<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+		<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p2<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+		<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p3<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+		<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p4<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+		<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p5<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nc">App</span><span class="p">&gt;</span>
+<span class="c1">// output:</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">className=</span><span class="s2">"app"</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p1<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p2<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p3<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p4<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>p5<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Tiny Sha" />
+          <p class="site-author-name" itemprop="name">Tiny Sha</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-3"> <a class="nav-link" href="#处理-children-不同类型的值"> <span class="nav-number">1</span> <span class="nav-text">处理 children 不同类型的值</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#部分源码赏析"> <span class="nav-number">2</span> <span class="nav-text">部分源码赏析</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#map的运行流程"> <span class="nav-number">2.1</span> <span class="nav-text">map()的运行流程</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#剩余的几个接口简单介绍"> <span class="nav-number">2.2</span> <span class="nav-text">剩余的几个接口简单介绍</span> </a> </li> </ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#一个-map的小玩法"> <span class="nav-number">3</span> <span class="nav-text">一个 map()的小玩法</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Sha</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

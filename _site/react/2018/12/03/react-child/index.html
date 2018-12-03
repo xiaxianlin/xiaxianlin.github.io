@@ -401,9 +401,7 @@
   <p>在自定义组件中可以对 children 再加工，所以不管传递什么都能拿到，主要在 native 元素里面的对不同的值有不同的处理结果。</p>
 </blockquote>
 
-<ol>
-  <li>true, false, undefined, null 以及空字符串</li>
-</ol>
+<p>1) true, false, undefined, null 以及空字符串</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="kc">true</span><span class="p">}&lt;</span><span class="err">/</span><span class="nt">div</span><span class="p">&gt;</span> 		// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 		// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -412,18 +410,14 @@
 <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="s1">''</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 			// output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<ol>
-  <li>数值或字符串类型</li>
-</ol>
+<p>2) 数值或字符串类型</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="s1">'abc'</span><span class="p">}&lt;</span><span class="err">/</span><span class="nt">div</span><span class="p">&gt;</span> // output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>abc<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="mi">123</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> // output: <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>123<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="si">{</span><span class="mi">0123</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> // error: 不是一个合法数字，如果数字0开头，必须是0x,0b,0o开头，且数字符合当前进制的数字
 </code></pre></td></tr></tbody></table></div></div>
 
-<ol>
-  <li>函数类型</li>
-</ol>
+<p>3) 函数类型</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 函数在react里面是无法直接使用，但是可以在我们自定义的组件里使用。</span>
 <span class="kd">class</span> <span class="nx">Header</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
@@ -440,9 +434,7 @@
 <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<ol>
-  <li>对象类型</li>
-</ol>
+<p>4) 对象类型</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// react只接受react.element对象和迭代器对象这两类，其他类型需要自定义组件去处理。</span>
 <span class="c1">// 模拟一个元素对象</span>
@@ -488,9 +480,7 @@
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<ol>
-  <li>数组类型，遍历整个数组，然后按照以上 4 条规则处理。</li>
-</ol>
+<p>5) 数组类型，遍历整个数组，然后按照以上 4 条规则处理。</p>
 
 <h3 id="部分源码赏析">部分源码赏析</h3>
 

@@ -12,7 +12,7 @@ tags:
 
 > 在自定义组件中可以对 children 再加工，所以不管传递什么都能拿到，主要在 native 元素里面的对不同的值有不同的处理结果。
 
-1. true, false, undefined, null 以及空字符串
+1) true, false, undefined, null 以及空字符串
 
 ```jsx
 <div>{true}</div> 		// output: <div></div>
@@ -22,7 +22,7 @@ tags:
 <div>{''}</div> 			// output: <div></div>
 ```
 
-2. 数值或字符串类型
+2) 数值或字符串类型
 
 ```jsx
 <div>{'abc'}</div> // output: <div>abc</div>
@@ -30,7 +30,7 @@ tags:
 <div>{0123}</div> // error: 不是一个合法数字，如果数字0开头，必须是0x,0b,0o开头，且数字符合当前进制的数字
 ```
 
-3. 函数类型
+3) 函数类型
 
 ```jsx
 // 函数在react里面是无法直接使用，但是可以在我们自定义的组件里使用。
@@ -48,7 +48,7 @@ class Header extends React.Component {
 </header>
 ```
 
-4. 对象类型
+4) 对象类型
 
 ```jsx
 // react只接受react.element对象和迭代器对象这两类，其他类型需要自定义组件去处理。
@@ -95,7 +95,7 @@ const iterator = createChildrenIterator(['create', 'remove'])
 </div>
 ```
 
-5. 数组类型，遍历整个数组，然后按照以上 4 条规则处理。
+5) 数组类型，遍历整个数组，然后按照以上 4 条规则处理。
 
 ### 部分源码赏析
 
@@ -212,7 +212,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
 
 #### 剩余的几个接口简单介绍
 
--   forEach()处理方式和 map()基本一致，只是把 mapSingleChildIntoContext 换成了 forEachSingleChild，而这个函数更简单
+* forEach()处理方式和 map()基本一致，只是把 mapSingleChildIntoContext 换成了 forEachSingleChild，而这个函数更简单
 
 ```javascript
 // 基本上回调一下后啥都不管
@@ -222,7 +222,7 @@ function forEachSingleChild(bookKeeping, child, name) {
 }
 ```
 
--   toArray()也是跟 map()差不多，就等于 map(children, child => child)
+* toArray()也是跟 map()差不多，就等于 map(children, child => child)
 
 ```javascript
 function toArray(children) {
@@ -232,7 +232,7 @@ function toArray(children) {
 }
 ```
 
--   count()在 map()的基础，砍掉了回调和 traverseContext 的处理
+* count()在 map()的基础，砍掉了回调和 traverseContext 的处理
 
 ```javascript
 function countChildren(children) {
@@ -240,7 +240,7 @@ function countChildren(children) {
 }
 ```
 
--   only 是最简单，返回自身，只是做了一次合法校验而已
+* only 是最简单，返回自身，只是做了一次合法校验而已
 
 ```javascript
 function onlyChild(children) {

@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-12T16:28:49+08:00</updated><id>http://localhost:4000/atom.xml</id><title type="html">Tiny Blog</title><author><name>Tiny Sha</name></author><entry><title type="html">React.Component</title><link href="http://localhost:4000/react/2018/12/12/react-component/" rel="alternate" type="text/html" title="React.Component" /><published>2018-12-12T00:00:00+08:00</published><updated>2018-12-12T00:00:00+08:00</updated><id>http://localhost:4000/react/2018/12/12/react-component</id><content type="html" xml:base="http://localhost:4000/react/2018/12/12/react-component/">&lt;h1 id=&quot;component组件&quot;&gt;Component（组件）&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-12T16:43:46+08:00</updated><id>http://localhost:4000/atom.xml</id><title type="html">Tiny Blog</title><author><name>Tiny Sha</name></author><entry><title type="html">React.Component</title><link href="http://localhost:4000/react/2018/12/12/react-component/" rel="alternate" type="text/html" title="React.Component" /><published>2018-12-12T00:00:00+08:00</published><updated>2018-12-12T00:00:00+08:00</updated><id>http://localhost:4000/react/2018/12/12/react-component</id><content type="html" xml:base="http://localhost:4000/react/2018/12/12/react-component/">&lt;h1 id=&quot;component组件&quot;&gt;Component（组件）&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Build encapsulated components that manage their own state, then compose them to make complex UIs.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;React 的项目都是基于组件，将不同的业务和功能抽象层不同的组件，然后把组件通过某些规则组合在一起构成一个项目。React.Component 是所有组件的顶级父类，而每一个 Component 可以通过 React.createElement()进行实例，实例后的数据变成了 React.Element 类型。&lt;/p&gt;
+&lt;p&gt;React 的项目都是基于组件，将不同的业务和功能抽象层不同的组件，然后把组件通过某些规则组合在一起构成一个项目。React.Component 是所有组件的顶级父类，通过React.createElement()将Componenent转换成React.Element。&lt;/p&gt;
 
 &lt;h2 id=&quot;主要形式&quot;&gt;主要形式&lt;/h2&gt;
 
 &lt;h3 id=&quot;empty-component&quot;&gt;empty component&lt;/h3&gt;
 
-&lt;p&gt;这个可以称呼为空组件，但不是空的组件。其中 null、void、boolean 三个类型的值为空组件，只有 null、undefined、true、false 这四个实例，它们跟空字符串还不一样，空字符串属于文本组件。&lt;/p&gt;
+&lt;p&gt;这个可以称呼为空组件，但不是空的组件。其中 null、void、boolean 三个类型的值为空组件，因此null、undefined、true、false这四个值也是React.Element，它们跟空字符串还不一样，空字符串属于文本组件。&lt;/p&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReactEmpty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;boolean&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;text-component&quot;&gt;text component&lt;/h3&gt;
 
-&lt;p&gt;文本组件，主要包括 string 和 number 两种类型。所有字符串和数字都是文本组件的实例。&lt;/p&gt;
+&lt;p&gt;文本组件，主要包括 string 和 number 两种类型。所有字符串和数字都是React.Element。&lt;/p&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReactText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

@@ -395,20 +395,20 @@
   <p>Build encapsulated components that manage their own state, then compose them to make complex UIs.</p>
 </blockquote>
 
-<p>React 的项目都是基于组件，将不同的业务和功能抽象层不同的组件，然后把组件通过某些规则组合在一起构成一个项目。React.Component 是所有组件的顶级父类，而每一个 Component 可以通过 React.createElement()进行实例，实例后的数据变成了 React.Element 类型。</p>
+<p>React 的项目都是基于组件，将不同的业务和功能抽象层不同的组件，然后把组件通过某些规则组合在一起构成一个项目。React.Component 是所有组件的顶级父类，通过React.createElement()将Componenent转换成React.Element。</p>
 
 <h2 id="主要形式">主要形式</h2>
 
 <h3 id="empty-component">empty component</h3>
 
-<p>这个可以称呼为空组件，但不是空的组件。其中 null、void、boolean 三个类型的值为空组件，只有 null、undefined、true、false 这四个实例，它们跟空字符串还不一样，空字符串属于文本组件。</p>
+<p>这个可以称呼为空组件，但不是空的组件。其中 null、void、boolean 三个类型的值为空组件，因此null、undefined、true、false这四个值也是React.Element，它们跟空字符串还不一样，空字符串属于文本组件。</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="nx">type</span> <span class="nx">ReactEmpty</span> <span class="o">=</span> <span class="kc">null</span> <span class="o">|</span> <span class="k">void</span> <span class="o">|</span> <span class="kr">boolean</span>
 </code></pre></td></tr></tbody></table></div></div>
 
 <h3 id="text-component">text component</h3>
 
-<p>文本组件，主要包括 string 和 number 两种类型。所有字符串和数字都是文本组件的实例。</p>
+<p>文本组件，主要包括 string 和 number 两种类型。所有字符串和数字都是React.Element。</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="nx">type</span> <span class="nx">ReactText</span> <span class="o">=</span> <span class="nx">string</span> <span class="o">|</span> <span class="nx">number</span>
 </code></pre></td></tr></tbody></table></div></div>

@@ -10,13 +10,13 @@ tags:
 
 > Build encapsulated components that manage their own state, then compose them to make complex UIs.
 
-React 的项目都是基于组件，将不同的业务和功能抽象层不同的组件，然后把组件通过某些规则组合在一起构成一个项目。React.Component 是所有组件的顶级父类，而每一个 Component 可以通过 React.createElement()进行实例，实例后的数据变成了 React.Element 类型。
+React 的项目都是基于组件，将不同的业务和功能抽象层不同的组件，然后把组件通过某些规则组合在一起构成一个项目。React.Component 是所有组件的顶级父类，通过React.createElement()将Componenent转换成React.Element。
 
 ## 主要形式
 
 ### empty component
 
-这个可以称呼为空组件，但不是空的组件。其中 null、void、boolean 三个类型的值为空组件，只有 null、undefined、true、false 这四个实例，它们跟空字符串还不一样，空字符串属于文本组件。
+这个可以称呼为空组件，但不是空的组件。其中 null、void、boolean 三个类型的值为空组件，因此null、undefined、true、false这四个值也是React.Element，它们跟空字符串还不一样，空字符串属于文本组件。
 
 ```javascript
 export type ReactEmpty = null | void | boolean
@@ -24,7 +24,7 @@ export type ReactEmpty = null | void | boolean
 
 ### text component
 
-文本组件，主要包括 string 和 number 两种类型。所有字符串和数字都是文本组件的实例。
+文本组件，主要包括 string 和 number 两种类型。所有字符串和数字都是React.Element。
 
 ```javascript
 export type ReactText = string | number

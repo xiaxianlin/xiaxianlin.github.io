@@ -1,0 +1,954 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tiny Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在JavaScript中有非常重要的两个链结构，分别是作用域链和原型链。">
+<meta name="keywords" content="Jekyll, NexT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的链">
+<meta property="og:url" content="http://localhost:4000/javascript/1900/01/01/link/">
+<meta property="og:site_name" content="Tiny Blog">
+<meta property="og:description" content="在JavaScript中有非常重要的两个链结构，分别是作用域链和原型链。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/assets/images/articles/link_01.jpg">
+<meta property="og:image" content="/assets/images/articles/link_02.jpg">
+<meta property="og:image" content="/assets/images/articles/link_03.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript中的链">
+<meta name="twitter:description" content="在JavaScript中有非常重要的两个链结构，分别是作用域链和原型链。">
+<meta name="twitter:image" content="/assets/images/articles/link_01.jpg">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>JavaScript中的链 | Tiny Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tiny Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/1900/01/01/link/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiny Sha">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiny Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            JavaScript中的链
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="1900-01-01T00:00:00+08:00">
+                1900-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/JavaScript" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>在 JavaScript 中有原型链和作用域链这两个概念，这只是自下而上的观看。如果自上而下的看得就会变成树，也就是用于解释 JavaScript 的抽象语法树（AST）。对于新手来说，两链一树实在过于抽象，以致于经常理解得模棱两可，但是如果能够透彻的理解的两链一树，那么其他概念就迎刃而解，例如继承，封装，闭包等。本文着重会讲述两链，两链都是<strong>单向链结构</strong>(如下图)，只能向上追溯。</p>
+
+<p><img src="/assets/images/articles/link_01.jpg" alt="" /></p>
+
+<h3 id="原型链">原型链</h3>
+
+<p>在说原型之前，我们先要了解一下类型，在《The ECMAScript Language Specification》的第八章（Types）定义了六种类型，分别是 undefined、null、boolean、string、number、object。一般会使用 typeof 进行类型检查，但是这里有些特殊的情况，我们来看看下面一段代码：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="kc">null</span><span class="p">)</span> <span class="c1">// object</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">null</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">)</span> <span class="c1">// false</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">foo</span><span class="p">)</span> <span class="c1">// function</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>从上面的这段代码会让我们很疑惑，实际上 null 是一个单独的类型，而 typeof null 的结果是一个 bug，这个 bug 官方也是给予了承认，但是由于历史原因，这个 bug 不会被修复。再来看 function，因为函数在进行构造函数检测的时候能够追溯到 Object 的，所以函数为 object 类型。至于为什么函数在进行类型检查的时候返回 function，可能是因为函数作为第一等公民的存在原因，不过这只是我的猜测。</p>
+
+<p>再回到原型上来，原型只存在于对象之中，而函数具有原型，这也是函数为什么属于对象而不是单独类型的原因。对象会被存储在内存某个地方，而变量保存的是这个对象的引用，引用就像一根线，连接变量于内存中的实例，这个引用你可以理解为寻址。引用是一个很关键的点，不管是原型链还是作用域链都非常重要。再看看下面的代码：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nx">obj1</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">obj1</span><span class="p">)</span>
+<span class="nx">obj2</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="kd">var</span> <span class="nx">obj3</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">obj2</span><span class="p">)</span>
+<span class="nx">obj3</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>上面代码通过 Object.create 方法来创建对象从而实现原型继承，这里要注意一点，除了函数有 prototype 这个属性外，对象变量是没有这个属性，对象变量的有<strong>proto</strong>属性，这个是属于对象变量的原型属性。函数在被构造的时候会把 prototype 赋值给<strong>proto</strong>，但是这两个指向的是同一个对象。接下来用图片来看看 3 个对象的关系：</p>
+
+<p><img src="/assets/images/articles/link_02.jpg" alt="" /></p>
+
+<p>上图就是一个<strong>原型链</strong>，图中虚线圆圈表示对象的<strong>proto</strong>属性，一个对象的原型指向另外一个对象，如此往复，直到最终指向 Object.prototype 为止，而这里的指向是<strong>引用关系</strong>。我们在进行属性调用的时候，其实就是一个寻找属性的过程，从被调用的对象开始，通过原型链一个接一个的寻找，直到找到为止，这个过程是<strong>短路操作</strong>。如果我们需要调用 obj3.a，首先会在 obj3 上寻找 a，如果没有，就会通过原型去 obj2 上寻找 a，然后用相同的方式一直找，找到就中止，如果到 Object.prototype 也没有找到，那么就返回 undefined 给 a。这就是<strong>原型链属性查找</strong>。</p>
+
+<p>说完原型链，再来说说原型链继承，继承概念来源于 OOP，通过子类继承父类来实现属性公用。由于 JavaScript 并没有类这个概念，即便在 ES6 给出了 class 这个语法，也依然只是语法糖，包括 new 操作也只是 JavaScript 对 OOP 的一种妥协。在 OOP 中也只有类具备继承，而对象是不行的。原型链继承是因为原型链属性查找的原因实现了类似于继承这样的一个表象，通过原型链属性查找来实现了属性的公用。在这里要理清下面两点：</p>
+
+<ol>
+  <li>属性并没有被继承下来，可以通过 Object.hasOwnProperty 来检查。</li>
+  <li>相同属性不是覆盖，而是查找短路。</li>
+</ol>
+
+<p>由于原型链的指向是引用关系，因此直接修改原型的是非常危险的事情，就如下面这段代码：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj3</span><span class="p">.</span><span class="nx">a</span><span class="p">)</span> <span class="c1">// 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj3</span><span class="p">.</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 2</span>
+<span class="nx">obj2</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nx">obj2</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj3</span><span class="p">.</span><span class="nx">a</span><span class="p">)</span> <span class="c1">// 4</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj3</span><span class="p">.</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 5</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>可以发现原来的 obj3.a = 1 和 obj3.b = 2 全部被改掉了，这在实际工作中是非常危险的事情，由于原型被修改导致的问题很难被追查。所以 JavaScript 中的继承一般使用 Object.assign 和对象属性一一拷贝的方式来实现，这样可以隔离大部分引用，但是面对对象嵌套对象有时候就很无力，除非用递归来是实现层层拷贝，但是这样的消耗也是很恐怖的。</p>
+
+<h3 id="作用域链">作用域链</h3>
+
+<p>理解完原型链后再理解作用域就会轻松很多，在这里把作用域限定函数作用域和全局作用域，可以把函数作用域比作对象，把父级函数作用域比作原型，把全局作用域比作 Object.prototype，这样是不是就清晰明了。
+看图说话：</p>
+
+<p><img src="/assets/images/articles/link_03.jpg" alt="" /></p>
+
+<p>用代码来表示：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">globalScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span>
+<span class="nx">globalScope</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="kd">var</span> <span class="nx">aooScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">globalScope</span><span class="p">)</span>
+<span class="nx">aooScope</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="kd">var</span> <span class="nx">booScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">aooScope</span><span class="p">)</span>
+<span class="nx">booScope</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="kd">var</span> <span class="nx">cooScope</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">booScope</span><span class="p">)</span>
+<span class="nx">cooScope</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="mi">4</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>这样看是不是就很有意思多了，每个作用域相当于一个对象，里面的变量都是这个对象的属性，父级作用域相当于是子级作用域的原型，通过原型链属性查询，子级作用域可以访问父级作用域的属性，这个查找也基本短路属性，一级一级往上找，找到就停。还有一种说法是复制并写入，就是子级把父级的变量拷贝一份并合并给自己，在我看来，这明显不可取，如果修改父级变量，子级访问的肯定是修改的值。接下来了解下跟作用域息息相关的闭包，在 YDKJS 里面是这样定义闭包的：</p>
+
+<blockquote>
+  <p>Closure is when a function can remember and access its lexical scope even when it’s invoked outside its lexical scope.</p>
+</blockquote>
+
+<p>这里就不去关注 remember 和 access，如果从作用域链的角度出发，这两点就是基本条件，关注点集中到 invoked outside，外部调用是啥意思呢，拿图中的代码来说就是在全局里面调用 coo 方法，这个怎么来调用就看下面的两段代码：
+代码 1：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">var</span> <span class="nx">fn</span>
+<span class="kd">function</span> <span class="nx">aoo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="kd">function</span> <span class="nx">boo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="kd">function</span> <span class="nx">coo</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="c1">// todos</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">fn</span> <span class="o">=</span> <span class="nx">coo</span>
+    <span class="p">}</span>
+    <span class="nx">boo</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="nx">aoo</span><span class="p">()</span>
+<span class="nx">fn</span><span class="p">()</span> <span class="c1">// 2</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>代码 2：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="kd">function</span> <span class="nx">aoo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="kd">function</span> <span class="nx">boo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="kd">function</span> <span class="nx">coo</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="c1">// todos</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">coo</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">boo</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">aoo</span><span class="p">()()</span>
+<span class="nx">fn</span><span class="p">()</span> <span class="c1">// 2</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>两段代码都是现实了外部调用，不管是代码 1 的直接赋值还是代码 2 的返回赋值，结果都是 fn 引用了 coo，用于引用是在外部调用，所以 coo 的作用域相对外部来说是封闭的，所以也就叫闭包。那么在回到刚才写的作用域链里面，fn 引用了 coo，coo 的作用域对象是 cooScope，这样就很清晰的看到 fn 在调用的时候是 coo 是如何访问父级作用的变量的。</p>
+
+<h3 id="结束语">结束语</h3>
+
+<p>我采用经济学里常用的方法，去掉大部分变量，通过对简单的变量分析来研究，因此这些解释有点粗糙，不过在我看来还是比较通俗易懂的。作用域还有很多内容，闭包也有其他的内容，但是这些都不是这里讨论。</p>
+
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/javascript/1900/01/01/module/" rel="next" title="模块化以及JS中的实践">
+                <i class="fa fa-chevron-left"></i> 模块化以及JS中的实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/css/1900/01/01/double-layout/" rel="prev" title="常用的两栏布局">
+                常用的两栏布局 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Tiny Sha" />
+          <p class="site-author-name" itemprop="name">Tiny Sha</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-3"> <a class="nav-link" href="#原型链"> <span class="nav-number">1</span> <span class="nav-text">原型链</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#作用域链"> <span class="nav-number">2</span> <span class="nav-text">作用域链</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#结束语"> <span class="nav-number">3</span> <span class="nav-text">结束语</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Sha</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

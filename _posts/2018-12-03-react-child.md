@@ -3,7 +3,6 @@ title: React.Children
 description: Children是React用来处理props.children的一个对象，一个提供了五个接口，分别是map, forEach, count, toArray, Only。
 categories:
     - React
-tags:
 ---
 
 > Children 是 React 用来处理 props.children 的一个对象，一个提供了五个接口，分别是 map, forEach, count, toArray, Only。

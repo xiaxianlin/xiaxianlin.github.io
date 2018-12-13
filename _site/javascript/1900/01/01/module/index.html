@@ -1,0 +1,997 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tiny Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="模块化在社会发展中的体现应该就是社会化分工，分工后的专业程度非常高，实现效率也非常高。">
+<meta name="keywords" content="Jekyll, NexT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模块化以及JS中的实践">
+<meta property="og:url" content="http://localhost:4000/javascript/1900/01/01/module/">
+<meta property="og:site_name" content="Tiny Blog">
+<meta property="og:description" content="模块化在社会发展中的体现应该就是社会化分工，分工后的专业程度非常高，实现效率也非常高。">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模块化以及JS中的实践">
+<meta name="twitter:description" content="模块化在社会发展中的体现应该就是社会化分工，分工后的专业程度非常高，实现效率也非常高。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>模块化以及JS中的实践 | Tiny Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tiny Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/1900/01/01/module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiny Sha">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiny Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            模块化以及JS中的实践
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="1900-01-01T00:00:00+08:00">
+                1900-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/JavaScript" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 id="模块化随想">模块化随想</h2>
+
+<p>在产品的发展中，一个产品往往会从简单走向复杂，这时候就需要对产品进行解构，通过分解再组合的方式实现解耦，而分解出来的部分就是模块。因此可以看出模块第一个特性就是复用，但不是所有模块都需要被复用。在设计产品时，往往会将一些相似或相关的独立功能抽取出来成为一个独立模块，相关指的是这一类功能操作对象有相关性，这一类模块常被称为功能模块，这类模块有极高的独立性，一般不会有其他依赖，因此这类模块只要有良好的设计规范，可以极好的进行模块替换，这就带来了模块设计中的可维护性。而优秀的模块封装具有高度的内聚，模块使用者不需要知道模块的实现，只需要提供明确的接口即可，当然优秀的模块需要提供良好的可扩展性，提供使用者可以自己定制功能的能力。</p>
+
+<p>从上述提到的复用、解耦、可维护性和可扩展性可以看出模块其实也一种系统，这是这种系统比较微小，在后端中微服务也是模块化设计的一类实现。从现实中找模块化的实现非乐高莫属，乐高的积木提供几个基础模型，这几个基础模型就是功能模块。将多个基础模型用特有的规则组成各种子模型，通过对子模型的组合构成完整模型，这类完整模型就是对现实物品的抽象，将完整模型继续组合成场景。程序世界里面的系统也是如此，在程序设计中，一般会有功能模块，通用业务模块，完整业务模块，子系统模块以及系统模块等等，都是从最基础的模块一层一层的组合而成，这种组合方式带来了本段开头提到的好处。</p>
+
+<p>在程序设计中，如果能在最初确定规模以及复杂度，那么模块设计应该在开发之前的设计文档中体现，不要求尽善尽美，但是一定满足核心需求，然后在开发中不断提炼、重构。不能确定规模以及复杂度，只能在开发中完善，而这类完善是写出优质代码和稳定业务的基石，不可因为繁琐就放弃。在长期的模块提取和重构中，可以锻炼出非常优秀的设计能力。在进行模块设计的时候可以参考设计模式的六大原则。</p>
+
+<p>模块化在社会发展中的体现应该就是社会化分工，分工后的专业程度非常高，实现效率也非常高。而程序中也是这样，超大型的系统往往由各种子系统组合，各个子系统由更加专业的开发人员开发会带来更高的质量和效率，只需要有优秀的接口设计就可以完美的进行系统间的组装。</p>
+
+<h2 id="js-中的模块化技术">JS 中的模块化技术</h2>
+
+<p>在前端开发的历史中，SPA 页面最早并不是很多，所以那时候更多的是一个页面对应一个专属 JS 文件，然后在引用几个通用文件，这里可以把每个文件认成一个模块。再加上那时候的业务并不复杂，大部分业务逻辑也是由服务端完成，所以 JS 代码量并不大，这个时候模块化的需求并不高，随着浏览器的能力越来越高，业务逻辑逐步从服务端转移到客户端，代码量也越来越大，因此带来了代码拆分、全局变量冲突等问题，由此模块化的需求越来越高。最早的模块化应用是在浏览器之外的，随着 SPA 的崛起，打包工具的发展，浏览器的模块化才开始渐渐兴起。</p>
+
+<h3 id="commonjs">CommonJS</h3>
+
+<blockquote>
+  <p>What I’m describing here is not a technical problem. It’s a matter of people getting together and making a decision to step forward and start building up something bigger and cooler together.</p>
+</blockquote>
+
+<p>由 Mozilla 的工程师 Kevin Dangoor 在 2009 年 1 月成立的项目，最初的名称叫 ServerJS，后来在童年 8 月份改名为 CommonJS。该规范不属于 ECMA 的 TC39 的工作，但是有部分 TC39 的成员参与。</p>
+
+<blockquote>
+  <p>These modules are offered privacy of their top scope, facility for importing singleton objects from other modules, and exporting their own API. By implication, this specification defines the minimum features that a module system must provide in order to support interoperable modules.</p>
+</blockquote>
+
+<p>以上内容来自 CommonJS 的官方文档，主要的关键点只有私有的顶级作用域、简单的导入其他模块的单个对象以及提供自己的 API。</p>
+
+<p><strong>Modules/1.0</strong></p>
+
+<ul>
+  <li>在一个模块中有一个全局变量 require 的函数，该函数接收一个模块的标识名，返回另外一个模块提供的 API。</li>
+  <li>在一个模块中有一个全局变量 exports 的对象，可以在这个对象添加对外的 API。</li>
+  <li>模块只能使用 exports 来对外提供访问入口。</li>
+</ul>
+
+<p><strong>Modules/1.1</strong></p>
+
+<ul>
+  <li>在一个模块中，必须有一个全局变量 module 的对象，这个对象有一个只读且不能删除的属性 id，同时提供了一个 uri 的属性。</li>
+</ul>
+
+<p>main.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="nx">exports</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">args</span> <span class="o">=</span> <span class="kr">arguments</span><span class="p">,</span>
+        <span class="nx">l</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">args</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">sum</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>increment.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'math'</span><span class="p">).</span><span class="nx">add</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">increment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">add</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>program.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">inc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'increment'</span><span class="p">).</span><span class="nx">increment</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nx">inc</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="c1">// 2</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="s1">'program'</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>从上述规范和代码示例来看，CommonJS 不是很适合浏览器端的开发。</p>
+
+<h3 id="amdasynchronous-module-definition">AMD(Asynchronous Module Definition)</h3>
+
+<p>顾名思义，AMD 提供的是一种异步模块加载的方案。在浏览器端的开发，进行页面优化的一项就是减少文件请求和减小文件的大小，而异步加载加载很好的解决了这一问题，实现了按需加载。AMD 只提供了一个全局函数 define。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="nx">id</span><span class="p">?,</span> <span class="nx">dependencies</span><span class="p">?,</span> <span class="nx">factory</span><span class="p">);</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<ul>
+  <li>id: 模块的标识，可以选择不填，是其他模块进行依赖加载的唯一标识。</li>
+  <li>dependencies: 标识数组，根据标识加载模块，并传入到 factory 函数中。</li>
+  <li>factory: 处理模块的业务，接收加载的依赖，依赖的顺序跟 dependencies 顺序一致，函数可以通过 exports 导出模块，或者直接使用 return 导出模块。</li>
+</ul>
+
+<p><strong>示例</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="nx">define</span><span class="p">(</span><span class="s1">'alpha'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'require'</span><span class="p">,</span> <span class="s1">'exports'</span><span class="p">,</span> <span class="s1">'beta'</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">beta</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">exports</span><span class="p">.</span><span class="nx">verb</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">beta</span><span class="p">.</span><span class="nx">verb</span><span class="p">()</span>
+        <span class="c1">//Or:</span>
+        <span class="k">return</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'beta'</span><span class="p">).</span><span class="nx">verb</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>在这里只是简单的介绍下 AMD 的规范和使用，AMD 在规范实现了对 CommonJS 上的兼容，但这种兼容有点不伦不类。AMD 不能兼容服务端的 IO 和文件系统等特性。前端对 AMD 进行实现的库最主要有 require.js 等</p>
+
+<h3 id="umduniversal-module-definition">UMD(Universal Module Definition)</h3>
+
+<p>UMD 并不是一种规范，而是规范的适配器，通过 UMD 可以实现对 AMD 和 CommonJS 的同时支持。因此 UMD 模块可以同时运行客户端和服务端，现在大部分库都是使用 UMD，主要规范多了就蛋疼。</p>
+
+<p><strong>示例</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23</pre></td><td class="code"><pre class="highlight"><code><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s1">'function'</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// AMD</span>
+        <span class="nx">define</span><span class="p">([</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="s1">'myOtherModule'</span><span class="p">],</span> <span class="nx">factory</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">exports</span> <span class="o">===</span> <span class="s1">'object'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// CommonJS</span>
+        <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">),</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'myOtherModule'</span><span class="p">))</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Browser globals (Note: root is window)</span>
+        <span class="nx">root</span><span class="p">.</span><span class="nx">returnExports</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">myModule</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">myOtherModule</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})(</span><span class="k">this</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">myModule</span><span class="p">,</span> <span class="nx">myOtherModule</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Methods</span>
+    <span class="kd">function</span> <span class="nx">notHelloOrGoodbye</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// A private method</span>
+    <span class="kd">function</span> <span class="nx">hello</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// A public method because it's returned (see below)</span>
+    <span class="kd">function</span> <span class="nx">goodbye</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// A public method because it's returned (see below)</span>
+
+    <span class="c1">// Exposed public methods</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">hello</span><span class="p">:</span> <span class="nx">hello</span><span class="p">,</span>
+        <span class="na">goodbye</span><span class="p">:</span> <span class="nx">goodbye</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="es6-的-module">ES6 的 Module</h3>
+
+<p>在最新的 ES6 标准，给了完整的模块的规范，一个文件代表一个模块，模块内部默认使用严格模式。模块内的变量均为本地变量。可以通过&lt;\script type=“module” src=“filename”&gt;\导入模块。</p>
+
+<ul>
+  <li>模块内通过 export 提供属性的对外访问，通过 export default 提供默认属性，export default 只能有一个且只能是表达式，函数或者类才能用 default。</li>
+  <li>模块内通过 import 提供对其他的访问，import 只能放在文件的头部。</li>
+  <li>每个模块都是一个单例</li>
+</ul>
+
+<p>lib.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">'lib'</span>
+<span class="kd">const</span> <span class="nx">sqrt</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span>
+<span class="p">}</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">diag</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">sqrt</span><span class="p">(</span><span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">+</span> <span class="nx">square</span><span class="p">(</span><span class="nx">y</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">name</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>main.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="k">import</span> <span class="nx">name</span><span class="p">,</span> <span class="p">{</span> <span class="nx">square</span><span class="p">,</span> <span class="nx">diag</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'lib'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// 'lib'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">square</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span> <span class="c1">// 121</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">diag</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="c1">// 5</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>这里只是简单的介绍 ES6 模块的规范内容，至于其他的很多机制不详细展开，具体去参考相关文档，由于 ES6 的规范在大部分浏览器上并未实现，所以一般采用 babel 之内的进行翻译，翻译成 CommonJS 之类的规范。</p>
+
+<h3 id="cmdcommon-module-definition">CMD(Common Module Definition)</h3>
+
+<p>CMD 是 SeaJS 根据 AMD 进行的一次扩展，提供了模块按需延迟加载的功能。</p>
+
+<h2 id="组件化">组件化</h2>
+
+<p>组件化是前端对模块化的另一种实现，主要是通过对业务或者功能进行封装，这个封装包含了 HTML 结构，CSS 样式以及 JS 交互，完成一个开封即用的模块。</p>
+
+<h2 id="结语">结语</h2>
+
+<p>模块化重要的不是规范，而是思想，是对具体业务、具体场景进行不断解构、重组后获得的宝贵经验。所有优秀的设计都是从简单到复杂不断的推演出来的，而模块化设计也是一样。</p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/react/2018/12/03/react-child/" rel="next" title="React.Children">
+                <i class="fa fa-chevron-left"></i> React.Children
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/javascript/1900/01/01/link/" rel="prev" title="JavaScript中的链">
+                JavaScript中的链 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Tiny Sha" />
+          <p class="site-author-name" itemprop="name">Tiny Sha</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#模块化随想"> <span class="nav-number">1</span> <span class="nav-text">模块化随想</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#js-中的模块化技术"> <span class="nav-number">2</span> <span class="nav-text">JS 中的模块化技术</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#commonjs"> <span class="nav-number">2.1</span> <span class="nav-text">CommonJS</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#amdasynchronous-module-definition"> <span class="nav-number">2.2</span> <span class="nav-text">AMD(Asynchronous Module Definition)</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#umduniversal-module-definition"> <span class="nav-number">2.3</span> <span class="nav-text">UMD(Universal Module Definition)</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#es6-的-module"> <span class="nav-number">2.4</span> <span class="nav-text">ES6 的 Module</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#cmdcommon-module-definition"> <span class="nav-number">2.5</span> <span class="nav-text">CMD(Common Module Definition)</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#组件化"> <span class="nav-number">3</span> <span class="nav-text">组件化</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#结语"> <span class="nav-number">4</span> <span class="nav-text">结语</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Sha</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

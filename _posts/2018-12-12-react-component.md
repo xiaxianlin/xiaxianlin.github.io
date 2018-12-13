@@ -89,7 +89,7 @@ class CustomComponent extends React.Component {}
 -   refs 记录子组件的实例引用
 -   state 自身的状态数据，这个属性最好是用 this.setState()更新，一般不要直接修改，某些情况可以例外。
 
-这个例外其实在三个 render 前的生命周期里可以直接复制，分别是 componentWilMount，componentWillReceiveProps，componentWillUpdate 这三个，因为它们调用完成之后马上进行 render，这是直接赋值和 setState()的效果是一致。在 componentWilMount，componentWillReceiveProps 这两个方法里面使用 setState()会连续两次 render()，componentWillUpdate 这个里面一定不能使用 setState()。当然官方是不建议直接赋值的，这也算一种不安全做法，但是方便，具体情况看个人爱好。
+这个例外其实在三个 render 前的生命周期里可以直接赋值，分别是 componentWilMount，componentWillReceiveProps，componentWillUpdate 这三个，因为它们调用完成之后马上进行 render，这是直接赋值和 setState()的效果是一致。在 componentWilMount，componentWillReceiveProps 这两个方法里面使用 setState()会连续两次 render()，componentWillUpdate 这个里面一定不能使用 setState()。当然官方是不建议直接赋值的，这也算一种不安全做法，但是方便，具体情况看个人爱好。
 
 ### 行为
 
@@ -199,7 +199,7 @@ function shallowEqual(objA: mixed, objB: mixed): boolean {
 
 
 // ReactFilberClassComponent.js
-// 坚持是否需要更新
+// 检查是否需要更新
 function checkShouldComponentUpdate(workInProgress, ctor, ... ) {
     // ingores...
 

@@ -1,0 +1,1024 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tiny Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Element是React中一种可渲染的数据，其主要作用就是拿去给ReactDOM.render()使用。">
+<meta name="keywords" content="Jekyll, NexT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React.Element">
+<meta property="og:url" content="http://localhost:4000/react/2018/12/13/react-element/">
+<meta property="og:site_name" content="Tiny Blog">
+<meta property="og:description" content="Element是React中一种可渲染的数据，其主要作用就是拿去给ReactDOM.render()使用。">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React.Element">
+<meta name="twitter:description" content="Element是React中一种可渲染的数据，其主要作用就是拿去给ReactDOM.render()使用。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>React.Element | Tiny Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tiny Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/react/2018/12/13/react-element/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiny Sha">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiny Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            React.Element
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T00:00:00+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/React" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <h1 id="reactelement">React.Element</h1>
+
+<p>Element 是 React 中一种可渲染的数据，其主要作用就是拿去给 ReactDOM.render()使用。在这里需要谈论下 Component 和 Element 的关系，在我看来 Component 像是一个模具，也有点像类，而 Element 就更新实体或者类实例后的对象，Component 的实例并不是 Element。</p>
+
+<h2 id="数据结构">数据结构</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// ReactElementType.js</span>
+
+<span class="k">export</span> <span class="nx">type</span> <span class="nx">Source</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">fileName</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="na">lineNumber</span><span class="p">:</span> <span class="nx">number</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="nx">type</span> <span class="nx">ReactElement</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="na">$typeof</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span>
+    <span class="na">type</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span>
+    <span class="na">key</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span>
+    <span class="na">ref</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span>
+    <span class="na">props</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span>
+    <span class="na">_owner</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span> <span class="c1">// ReactInstance or ReactFiber</span>
+    <span class="c1">// __DEV__</span>
+    <span class="na">_store</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">validated</span><span class="p">:</span> <span class="kr">boolean</span>
+    <span class="p">},</span>
+    <span class="na">_self</span><span class="p">:</span> <span class="nx">React$Element</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="na">_shadowChildren</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span>
+    <span class="na">_source</span><span class="p">:</span> <span class="nx">Source</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>从源码来上看，Element 的结构非常简单，就是一个普通的 object 类型，连构造函数都不算。</p>
+
+<h3 id="typeof">@@typeof</h3>
+
+<p>当 Element 是一个普通对象的时候，需要这个字段来区分该对象是不是一个合法的 Elemenent。一般我们使用 React.createElement()这个接口来创建，其实也可以自己写一个对象，只要满足格式也是可以的。如果 React 发现当@@typeof 为 REACT_ELEMENT_TYPE，就默认必然有后面的字段。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">REACT_ELEMENT_TYPE</span> <span class="o">=</span> <span class="nx">hasSymbol</span> <span class="p">?</span> <span class="nb">Symbol</span><span class="p">.</span><span class="k">for</span><span class="p">(</span><span class="s1">'react.element'</span><span class="p">)</span> <span class="p">:</span> <span class="mh">0xeac7</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="type">type</h3>
+
+<p>type 主要接受的是一个组件，关于组件可以去看一下《React.Component》。主要可以传入 class、function 和 string 三种类型的值。</p>
+
+<ul>
+  <li>class 和 function 代表着 React 标准的 Component 形式。如果传入非法类型，渲染时会被忽略。</li>
+  <li>string 类型对应原生 DOM 标签的名称，比如 a、div、p 等等这样的标签。</li>
+</ul>
+
+<h3 id="key">key</h3>
+
+<p>key 就是一个唯一标识，可以自定义，这个非常重要，能影响到渲染的性能。当一个 Element 的 key 发生变化时，需要销毁原有的 Element，再去生成一个全新的。这个字段也带来很多坑。</p>
+
+<h3 id="ref">ref</h3>
+
+<p>ref 可以接受 React.Ref 类型的值，最后可以获取 type 实例。但是 function component 是不能传入的，因为它没有真的实例。</p>
+
+<ul>
+  <li>如果 type 是 class component，那么拿到的是 class 的实例。</li>
+  <li>如果 type 是原生 DOM 节点，那么拿到的是 DOM Element 的实例。</li>
+</ul>
+
+<p>如果 ref 是 forward_ref 这个拿到的实例就不确定了，需要看具体给谁了，但是还是依然在上面两类里面。</p>
+
+<h3 id="props">props</h3>
+
+<p>一个普通的 object 对象，type 实例后所需要的参数，但是这里面 children 这个字段比较特殊，这是一个内置字段，代表着当前元素的子元素。</p>
+
+<ul>
+  <li>当 type 为 function component 时，props 会传入给函数的第一个参数。</li>
+  <li>当 type 为 class component 时，在 class 实例化后，可以在对象内部使用 this.props 获得。</li>
+  <li>当 type 为原生 DOM 节点时，可以的传入 DOM API，自定义的属性也可以，但是会有警告。</li>
+</ul>
+
+<h3 id="_owner">_owner</h3>
+
+<p>内部字段，用来记录谁创建了这个元素。要么是一个组件的实例，要么就是 Fiber。</p>
+
+<h3 id="其他字段">其他字段</h3>
+
+<p>_store、_self、_shadowChildren 和_source 都是在开发模式中使用的，不做具体谈论。</p>
+
+<h2 id="相关-api">相关 api</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ReactElement</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">ref</span><span class="p">,</span> <span class="nb">self</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="na">$typeof</span><span class="p">:</span> <span class="nx">REACT_ELEMENT_TYPE</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nx">type</span><span class="p">,</span>
+        <span class="na">key</span><span class="p">:</span> <span class="nx">key</span><span class="p">,</span>
+        <span class="na">ref</span><span class="p">:</span> <span class="nx">ref</span><span class="p">,</span>
+        <span class="na">props</span><span class="p">:</span> <span class="nx">props</span><span class="p">,</span>
+        <span class="na">_owner</span><span class="p">:</span> <span class="nx">owner</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">element</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>很简单的一个工厂方法，相应字段在上面已经介绍过，后面的 createElement()和 cloneElement()都会用到这个工厂方法。</p>
+
+<h3 id="reactcreateelement">React.createElement()</h3>
+
+<p>这个方法的第二个参数如果传入 children 这个字段的话会被忽略。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">createElement</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">propName</span>
+    <span class="kd">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="kd">let</span> <span class="nx">key</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="kd">let</span> <span class="nx">ref</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="kd">let</span> <span class="nb">self</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">config</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">hasValidRef</span><span class="p">(</span><span class="nx">config</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">ref</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">ref</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">hasValidKey</span><span class="p">(</span><span class="nx">config</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">key</span> <span class="o">=</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">config</span><span class="p">.</span><span class="nx">key</span>
+        <span class="p">}</span>
+
+        <span class="nb">self</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">__self</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="p">?</span> <span class="kc">null</span> <span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">__self</span>
+        <span class="nx">source</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">__source</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="p">?</span> <span class="kc">null</span> <span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">__source</span>
+        <span class="c1">// Remaining properties are added to a new props object</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">propName</span> <span class="k">in</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="nx">propName</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">RESERVED_PROPS</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">propName</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">props</span><span class="p">[</span><span class="nx">propName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">config</span><span class="p">[</span><span class="nx">propName</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 把第二参数的所有参数处理成children，然后放在props里面，会覆盖config.chilren</span>
+    <span class="kd">const</span> <span class="nx">childrenLength</span> <span class="o">=</span> <span class="kr">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">childrenLength</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">children</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">childrenLength</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">childArray</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">childrenLength</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">childrenLength</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">childArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="kr">arguments</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">childArray</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 将我们设置的props的默认值赋值给对应的prop</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span><span class="p">.</span><span class="nx">defaultProps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">defaultProps</span> <span class="o">=</span> <span class="nx">type</span><span class="p">.</span><span class="nx">defaultProps</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">propName</span> <span class="k">in</span> <span class="nx">defaultProps</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">[</span><span class="nx">propName</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">props</span><span class="p">[</span><span class="nx">propName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">defaultProps</span><span class="p">[</span><span class="nx">propName</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">ReactElement</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">ref</span><span class="p">,</span> <span class="nb">self</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">ReactCurrentOwner</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="reactcloneelement">React.cloneElement()</h3>
+
+<p>clone 就是进行一堆复制，然后创建一个新的。clone 的同时也可以重新配置 props。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">cloneElement</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">propName</span>
+    <span class="kd">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">)</span>
+    <span class="kd">let</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">key</span>
+    <span class="kd">let</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">ref</span>
+    <span class="c1">// 下面这个属性是被保护的。</span>
+    <span class="kd">const</span> <span class="nb">self</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">_self</span>
+    <span class="kd">const</span> <span class="nx">source</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">_source</span>
+    <span class="c1">// clone的时候改变了ref，owner会被重写</span>
+    <span class="kd">let</span> <span class="nx">owner</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">_owner</span>
+
+    <span class="c1">// 省略掉了处理config和children的代码，跟createElement()里面的是一模一样的。</span>
+
+    <span class="k">return</span> <span class="nx">ReactElement</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">ref</span><span class="p">,</span> <span class="nb">self</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="reactcreatefactory">React.createFactory()</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">createFactory</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">factory</span> <span class="o">=</span> <span class="nx">createElement</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span>
+    <span class="nx">factory</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span>
+    <span class="k">return</span> <span class="nx">factory</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>这个就很简单了，就是创建一个快速创建同类 Element 的方法。</p>
+
+<h3 id="reactisvalidelement">react.isValidElement()</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">isValidElement</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">typeof</span> <span class="nx">object</span> <span class="o">===</span> <span class="s1">'object'</span> <span class="o">&amp;&amp;</span> <span class="nx">object</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">object</span><span class="p">.</span><span class="nx">$$typeof</span> <span class="o">===</span> <span class="nx">REACT_ELEMENT_TYPE</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>简单判断一下是不是合法的 Element 对象。</p>
+
+<h2 id="一些特殊情况">一些特殊情况</h2>
+
+<p>Element 并不是只有 object 类型，实际上还有空和文本两类，这两类分别对应 empty component 和 text component。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 这样都不会报错，而且都还能渲染</span>
+<span class="c1">// 这两种会返回实例为‘123’</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="p">...)</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'123'</span><span class="p">,</span> <span class="p">...)</span>
+<span class="c1">// 这四种会返回实例为null，渲染也全是空</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="p">...)</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="p">...)</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="p">...)</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">...)</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/react/2018/12/12/react-component/" rel="prev" title="React.Component">
+                React.Component <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Tiny Sha" />
+          <p class="site-author-name" itemprop="name">Tiny Sha</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#reactelement"> <span class="nav-number">1</span> <span class="nav-text">React.Element</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#数据结构"> <span class="nav-number">1.1</span> <span class="nav-text">数据结构</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#typeof"> <span class="nav-number">1.1.1</span> <span class="nav-text">@@typeof</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#type"> <span class="nav-number">1.1.2</span> <span class="nav-text">type</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#key"> <span class="nav-number">1.1.3</span> <span class="nav-text">key</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#ref"> <span class="nav-number">1.1.4</span> <span class="nav-text">ref</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#props"> <span class="nav-number">1.1.5</span> <span class="nav-text">props</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#_owner"> <span class="nav-number">1.1.6</span> <span class="nav-text">_owner</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#其他字段"> <span class="nav-number">1.1.7</span> <span class="nav-text">其他字段</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#相关-api"> <span class="nav-number">1.2</span> <span class="nav-text">相关 api</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#reactcreateelement"> <span class="nav-number">1.2.1</span> <span class="nav-text">React.createElement()</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#reactcloneelement"> <span class="nav-number">1.2.2</span> <span class="nav-text">React.cloneElement()</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#reactcreatefactory"> <span class="nav-number">1.2.3</span> <span class="nav-text">React.createFactory()</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#reactisvalidelement"> <span class="nav-number">1.2.4</span> <span class="nav-text">react.isValidElement()</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#一些特殊情况"> <span class="nav-number">1.3</span> <span class="nav-text">一些特殊情况</span> </a> </li> </ol> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Sha</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

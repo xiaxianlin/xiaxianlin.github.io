@@ -3,7 +3,6 @@ title: React.Element
 description: Element是React中一种可渲染的数据，其主要作用就是拿去给ReactDOM.render()使用。
 categories:
     - React
-tags:
 ---
 
 # React.Element

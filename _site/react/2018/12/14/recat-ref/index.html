@@ -1,0 +1,961 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tiny Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Ref是React提供的一种方式可以获取到组件的实例引用，主要针对class component和host component。">
+<meta name="keywords" content="Jekyll, NexT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React.Ref">
+<meta property="og:url" content="http://localhost:4000/react/2018/12/14/recat-ref/">
+<meta property="og:site_name" content="Tiny Blog">
+<meta property="og:description" content="Ref是React提供的一种方式可以获取到组件的实例引用，主要针对class component和host component。">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React.Ref">
+<meta name="twitter:description" content="Ref是React提供的一种方式可以获取到组件的实例引用，主要针对class component和host component。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>React.Ref | Tiny Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tiny Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/react/2018/12/14/recat-ref/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tiny Sha">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiny Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            React.Ref
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T00:00:00+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/React" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>Ref 是 React 提供的一种方式可以获取到组件的实例引用，主要针对 class component 和 host component。在 React.createElement()的时候第二个参数 config 里面可以添加一个 ref 字段，这个字段可以给三种值，分别是字符串，函数、React.createRef()。</p>
+
+<h3 id="reactcreateref">React.createRef()</h3>
+
+<p>这是 v16.3 以后新提供的，React 会把实例引用指向对象的 current。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="nx">type</span> <span class="nx">RefObject</span> <span class="o">=</span> <span class="p">{</span><span class="o">|</span>
+    <span class="na">current</span><span class="p">:</span> <span class="nx">any</span>
+<span class="o">|</span><span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">createRef</span><span class="p">():</span> <span class="nx">RefObject</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">refObject</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">current</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">refObject</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="reactforwardref">React.forwardRef()</h3>
+
+<p>这个也是 v16.3 以后新提供的，这个接口需要传入一个函数组件，然后返回一个 REACT_FORWARD_REF_TYPE 的组件。新组件的 ref 获取到的实例引用不在组件的实例引用，而是封装函数复制给的组件实例。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">REACT_FORWARD_REF_TYPE</span> <span class="o">=</span> <span class="nx">hasSymbol</span> <span class="p">?</span> <span class="nb">Symbol</span><span class="p">.</span><span class="k">for</span><span class="p">(</span><span class="s1">'react.forward_ref'</span><span class="p">)</span> <span class="p">:</span> <span class="mh">0xead0</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">forwardRef</span><span class="o">&lt;</span><span class="nx">Props</span><span class="p">,</span> <span class="nx">ElementType</span><span class="p">:</span> <span class="nx">React$ElementType</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nx">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">props</span><span class="p">:</span> <span class="nx">Props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">:</span> <span class="nx">React$Ref</span><span class="o">&lt;</span><span class="nx">ElementType</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">React$Node</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="na">$typeof</span><span class="p">:</span> <span class="nx">REACT_FORWARD_REF_TYPE</span><span class="p">,</span>
+        <span class="nx">render</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>具体看一个示例会更清楚点。</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">ComponentA</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{}</span>
+
+<span class="kd">class</span> <span class="nx">ComponentB</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">refFactoryFunc</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">Comp</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">index</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">?</span> <span class="nx">ComponentA</span> <span class="p">:</span> <span class="nx">ComponentB</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Comp</span> <span class="na">ref=</span><span class="si">{</span><span class="nx">ref</span><span class="si">}</span><span class="p">/&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">WrappedComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">(</span><span class="nx">refFactoryFunc</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="p">()</span>
+<span class="c1">// 如果index是偶数ref.current指向ComponentA的实例，是奇数就指向ComponentB的实例。</span>
+<span class="o">&lt;</span><span class="nx">WrappedComponent</span> <span class="nx">index</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">}</span>  <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
+</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>这个接口解决了高阶组件的引用问题。</p>
+
+<h3 id="string-refs">String Refs</h3>
+
+<p>当 Element 的 ref 是一个字符串的时候，会被强制转换成 callback refs。在这个回调里面会把 ref 的值作为 key 添加到父级实例的 refs 上，然后把回调后获得实例引用赋值给这个 key。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// ReactChildFiber.js</span>
+
+<span class="kd">function</span> <span class="nx">coerceRef</span><span class="p">(</span><span class="nx">returnFiber</span><span class="p">:</span> <span class="nx">Fiber</span><span class="p">,</span> <span class="nx">current</span><span class="p">:</span> <span class="nx">Fiber</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">element</span><span class="p">:</span> <span class="nx">ReactElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">mixedRef</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">ref</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">mixedRef</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">mixedRef</span> <span class="o">!==</span> <span class="s1">'function'</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">mixedRef</span> <span class="o">!==</span> <span class="s1">'object'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">_owner</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">owner</span><span class="p">:</span> <span class="p">?</span><span class="nx">Fiber</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">_owner</span>
+            <span class="kd">let</span> <span class="nx">inst</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">owner</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">const</span> <span class="nx">ownerFiber</span> <span class="o">=</span> <span class="nx">owner</span>
+                <span class="nx">inst</span> <span class="o">=</span> <span class="nx">ownerFiber</span><span class="p">.</span><span class="nx">stateNode</span>
+            <span class="p">}</span>
+            <span class="kd">const</span> <span class="nx">stringRef</span> <span class="o">=</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">mixedRef</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">current</span><span class="p">.</span><span class="nx">ref</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">current</span><span class="p">.</span><span class="nx">ref</span> <span class="o">===</span> <span class="s1">'function'</span> <span class="o">&amp;&amp;</span> <span class="nx">current</span><span class="p">.</span><span class="nx">ref</span><span class="p">.</span><span class="nx">_stringRef</span> <span class="o">===</span> <span class="nx">stringRef</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">current</span><span class="p">.</span><span class="nx">ref</span>
+            <span class="p">}</span>
+            <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">let</span> <span class="nx">refs</span> <span class="o">=</span> <span class="nx">inst</span><span class="p">.</span><span class="nx">refs</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">refs</span> <span class="o">===</span> <span class="nx">emptyRefsObject</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">refs</span> <span class="o">=</span> <span class="nx">inst</span><span class="p">.</span><span class="nx">refs</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">delete</span> <span class="nx">refs</span><span class="p">[</span><span class="nx">stringRef</span><span class="p">]</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nx">refs</span><span class="p">[</span><span class="nx">stringRef</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="nx">ref</span><span class="p">.</span><span class="nx">_stringRef</span> <span class="o">=</span> <span class="nx">stringRef</span>
+            <span class="k">return</span> <span class="nx">ref</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">mixedRef</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="callback-refs">Callback Refs</h3>
+
+<p>当 Element 的 ref 是一个函数时，React 会在调用 callback 的时候，将实例传入到 callback 的第一参数。</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// node就是这个div</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">node</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">node</span> <span class="o">=</span> <span class="nx">node</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">callback</span> <span class="nx">ref</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span></code></pre></td></tr></tbody></table></div></div>
+
+<p>源码部分和<strong>Create Refs</strong>一起赏析。</p>
+
+<h3 id="create-refs">Create Refs</h3>
+
+<p>这种方式好像就是用来取代 String Refs 的，可能以后会去掉 String Refs 这种方式。具体示例在<strong>React.forwardRef()</strong>这个小节里面展示了。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// ReactFiberCommitWork.js</span>
+
+<span class="kd">function</span> <span class="nx">commitAttachRef</span><span class="p">(</span><span class="nx">finishedWork</span><span class="p">:</span> <span class="nx">Fiber</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">finishedWork</span><span class="p">.</span><span class="nx">ref</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ref</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">finishedWork</span><span class="p">.</span><span class="nx">stateNode</span>
+        <span class="kd">let</span> <span class="nx">instanceToUse</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">finishedWork</span><span class="p">.</span><span class="nx">tag</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 在这里去拿宿主组件的实例</span>
+            <span class="k">case</span> <span class="nx">HostComponent</span><span class="p">:</span>
+                <span class="nx">instanceToUse</span> <span class="o">=</span> <span class="nx">getPublicInstance</span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">default</span><span class="p">:</span>
+                <span class="nx">instanceToUse</span> <span class="o">=</span> <span class="nx">instance</span>
+        <span class="p">}</span>
+        <span class="c1">// 将实例交给两种不同的类型的ref</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">ref</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">ref</span><span class="p">(</span><span class="nx">instanceToUse</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">instanceToUse</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="forwording-refs">Forwording Refs</h3>
+
+<p>当 React 拿到 REACT_FORWARD_REF_TYPE 这个类型的数据后会就去调用 updateForwardRef()，将这个类型处理成普通的 Element，然后继续处理。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// ReactFiberBeginWork.js</span>
+<span class="c1">// Component是通过React.forwardRef()创建的对象。</span>
+<span class="kd">function</span> <span class="nx">updateForwardRef</span><span class="p">(</span><span class="nx">current</span><span class="p">:</span> <span class="nx">Fiber</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">workInProgress</span><span class="p">:</span> <span class="nx">Fiber</span><span class="p">,</span> <span class="nx">Component</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">:</span> <span class="nx">any</span><span class="p">,</span> <span class="nx">renderExpirationTime</span><span class="p">:</span> <span class="nx">ExpirationTime</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">render</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nx">render</span>
+    <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">ref</span>
+    <span class="c1">// ...codes...</span>
+    <span class="c1">// render就是我们在上面示例中的refFactoryFunc这个函数</span>
+    <span class="kd">let</span> <span class="nx">nextChildren</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span>
+    <span class="c1">// ...codes...</span>
+    <span class="c1">// 继续当成普通的子元素来处理</span>
+    <span class="nx">reconcileChildren</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">nextChildren</span><span class="p">,</span> <span class="nx">renderExpirationTime</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">child</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/react/2018/12/13/react-element/" rel="prev" title="React.Element">
+                React.Element <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Tiny Sha" />
+          <p class="site-author-name" itemprop="name">Tiny Sha</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-3"> <a class="nav-link" href="#reactcreateref"> <span class="nav-number">1</span> <span class="nav-text">React.createRef()</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#reactforwardref"> <span class="nav-number">2</span> <span class="nav-text">React.forwardRef()</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#string-refs"> <span class="nav-number">3</span> <span class="nav-text">String Refs</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#callback-refs"> <span class="nav-number">4</span> <span class="nav-text">Callback Refs</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#create-refs"> <span class="nav-number">5</span> <span class="nav-text">Create Refs</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#forwording-refs"> <span class="nav-number">6</span> <span class="nav-text">Forwording Refs</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Sha</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

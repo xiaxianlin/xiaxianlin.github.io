@@ -1,7 +1,19 @@
 // Custom styles.
+
+$contextWidth: 750px;
+.header-inner {
+    width: $contextWidth;
+}
+.main-inner {
+    margin-top: 30px;
+    width: $contextWidth;
+}
 .posts-expand {
+    .post {
+        margin-top: 50px;
+    }
     .post-meta {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
     .post-eof {
         margin-top: 50px;
@@ -10,4 +22,5 @@
 }
 .post-button {
     margin-top: 20px;
+    display: none;
 }

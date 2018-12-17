@@ -391,7 +391,7 @@
 
   <p>React 中的栈数据结构的设计，在 React 的多出场景中被使用到。它的结构是市面上的有点不一样，加入了游标（cursor）这个概念，其他的依然是一样的，都是用数组来模拟的。</p>
 
-<h2 id="基本的接口">基本的接口</h2>
+<h2 id="接口">接口</h2>
 
 <ul>
   <li>createCursor(defaultValue)</li>
@@ -402,7 +402,7 @@
 
 <p>在这个栈数据结构里面去掉常规的 top()接口，但是用了游标，因此 pop 和 push 不会直接返回数据，而是把数据交给游标对象了。这样一来在操作栈之前必须先创建游标，这里有个很神奇的地方就是用 createCursor()创建游标的默认值是没有进栈的。</p>
 
-<h2 id="基本属性">基本属性</h2>
+<h2 id="属性">属性</h2>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 栈游标数据结构</span>
 <span class="k">export</span> <span class="nx">type</span> <span class="nx">StackCursor</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
@@ -681,7 +681,7 @@
             
               <div class="post-toc-content">
     <ol class=nav>
-      <li class="nav-item nav-level-2"> <a class="nav-link" href="#基本的接口"> <span class="nav-number">1</span> <span class="nav-text">基本的接口</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#基本属性"> <span class="nav-number">2</span> <span class="nav-text">基本属性</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#createcursor"> <span class="nav-number">3</span> <span class="nav-text">createCursor()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#isempty"> <span class="nav-number">4</span> <span class="nav-text">isEmpty()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#pop"> <span class="nav-number">5</span> <span class="nav-text">pop()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#push"> <span class="nav-number">6</span> <span class="nav-text">push()</span> </a> </li>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#接口"> <span class="nav-number">1</span> <span class="nav-text">接口</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#属性"> <span class="nav-number">2</span> <span class="nav-text">属性</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#createcursor"> <span class="nav-number">3</span> <span class="nav-text">createCursor()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#isempty"> <span class="nav-number">4</span> <span class="nav-text">isEmpty()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#pop"> <span class="nav-number">5</span> <span class="nav-text">pop()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#push"> <span class="nav-number">6</span> <span class="nav-text">push()</span> </a> </li>
     </ol>
   </div>
             

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-17T16:19:43+08:00</updated><id>http://localhost:4000/atom.xml</id><title type="html">Tiny Blog</title><author><name>Tiny Sha</name></author><entry><title type="html">ReactFiberStack</title><link href="http://localhost:4000/react/2018/12/17/react-fiber-stack/" rel="alternate" type="text/html" title="ReactFiberStack" /><published>2018-12-17T00:00:00+08:00</published><updated>2018-12-17T00:00:00+08:00</updated><id>http://localhost:4000/react/2018/12/17/react-fiber-stack</id><content type="html" xml:base="http://localhost:4000/react/2018/12/17/react-fiber-stack/">&lt;p&gt;React 中的栈数据结构的设计，在 React 的多出场景中被使用到。它的结构是市面上的有点不一样，加入了游标（cursor）这个概念，其他的依然是一样的，都是用数组来模拟的。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-17T16:21:22+08:00</updated><id>http://localhost:4000/atom.xml</id><title type="html">Tiny Blog</title><author><name>Tiny Sha</name></author><entry><title type="html">ReactFiberStack</title><link href="http://localhost:4000/react/2018/12/17/react-fiber-stack/" rel="alternate" type="text/html" title="ReactFiberStack" /><published>2018-12-17T00:00:00+08:00</published><updated>2018-12-17T00:00:00+08:00</updated><id>http://localhost:4000/react/2018/12/17/react-fiber-stack</id><content type="html" xml:base="http://localhost:4000/react/2018/12/17/react-fiber-stack/">&lt;p&gt;React 中的栈数据结构的设计，在 React 的多出场景中被使用到。它的结构是市面上的有点不一样，加入了游标（cursor）这个概念，其他的依然是一样的，都是用数组来模拟的。&lt;/p&gt;
 
-&lt;h2 id=&quot;基本的接口&quot;&gt;基本的接口&lt;/h2&gt;
+&lt;h2 id=&quot;接口&quot;&gt;接口&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;createCursor(defaultValue)&lt;/li&gt;
@@ -11,7 +11,7 @@
 
 &lt;p&gt;在这个栈数据结构里面去掉常规的 top()接口，但是用了游标，因此 pop 和 push 不会直接返回数据，而是把数据交给游标对象了。这样一来在操作栈之前必须先创建游标，这里有个很神奇的地方就是用 createCursor()创建游标的默认值是没有进栈的。&lt;/p&gt;
 
-&lt;h2 id=&quot;基本属性&quot;&gt;基本属性&lt;/h2&gt;
+&lt;h2 id=&quot;属性&quot;&gt;属性&lt;/h2&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 栈游标数据结构&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;StackCursor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;

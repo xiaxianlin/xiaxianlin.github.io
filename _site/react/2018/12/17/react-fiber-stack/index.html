@@ -111,17 +111,17 @@
 
 
 
-<meta name="description" content="在日常开发中，两栏布局很经常出现，一把要求左栏定宽，右栏自适应。">
+<meta name="description" content="React中的栈数据结构的设计，在React的多出场景中被使用到。">
 <meta name="keywords" content="Jekyll, NexT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常用的两栏布局">
-<meta property="og:url" content="http://localhost:4000/css/1900/01/01/double-layout/">
+<meta property="og:title" content="ReactFiberStack">
+<meta property="og:url" content="http://localhost:4000/react/2018/12/17/react-fiber-stack/">
 <meta property="og:site_name" content="Tiny Blog">
-<meta property="og:description" content="在日常开发中，两栏布局很经常出现，一把要求左栏定宽，右栏自适应。">
+<meta property="og:description" content="React中的栈数据结构的设计，在React的多出场景中被使用到。">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常用的两栏布局">
-<meta name="twitter:description" content="在日常开发中，两栏布局很经常出现，一把要求左栏定宽，右栏自适应。">
+<meta name="twitter:title" content="ReactFiberStack">
+<meta name="twitter:description" content="React中的栈数据结构的设计，在React的多出场景中被使用到。">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -154,7 +154,7 @@
 
 
 
-  <title>常用的两栏布局 | Tiny Blog</title>
+  <title>ReactFiberStack | Tiny Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/css/1900/01/01/double-layout/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/react/2018/12/17/react-fiber-stack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tiny Sha">
@@ -300,7 +300,7 @@
           <h1 class="post-title" itemprop="name headline">
           
           
-            常用的两栏布局
+            ReactFiberStack
           
         </h1>
         
@@ -314,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="1900-01-01T00:00:00+08:00">
-                1900-01-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T00:00:00+08:00">
+                2018-12-17
               </time>
             
 
@@ -338,8 +338,8 @@
               
                 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/CSS" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/category/#/React" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -389,128 +389,100 @@
 
 
 
-  <blockquote>
-  <p>要求左栏定宽，右栏自适应。</p>
-</blockquote>
+  <p>React 中的栈数据结构的设计，在 React 的多出场景中被使用到。它的结构是市面上的有点不一样，加入了游标（cursor）这个概念，其他的依然是一样的，都是用数组来模拟的。</p>
 
-<p><strong>DOM 结构</strong></p>
+<h2 id="基本的接口">基本的接口</h2>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item left"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item right"</span><span class="nt">&gt;&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
+<ul>
+  <li>createCursor(defaultValue)</li>
+  <li>isEmpty()</li>
+  <li>pop(cursor, fiber)</li>
+  <li>push(cursor, value, fiber)</li>
+</ul>
+
+<p>在这个栈数据结构里面去掉常规的 top()接口，但是用了游标，因此 pop 和 push 不会直接返回数据，而是把数据交给游标对象了。这样一来在操作栈之前必须先创建游标，这里有个很神奇的地方就是用 createCursor()创建游标的默认值是没有进栈的。</p>
+
+<h2 id="基本属性">基本属性</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 栈游标数据结构</span>
+<span class="k">export</span> <span class="nx">type</span> <span class="nx">StackCursor</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">current</span><span class="p">:</span> <span class="nx">T</span>
+<span class="p">}</span>
+<span class="c1">// 存储栈数据的数组</span>
+<span class="kd">const</span> <span class="nx">valueStack</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1">// 存储fiber数据的接口，这是用来处理ReactFiber业务的特有</span>
+<span class="kd">let</span> <span class="nx">fiberStack</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Fiber</span> <span class="o">|</span> <span class="kc">null</span><span class="o">&gt;</span>
+<span class="c1">// 内部索引</span>
+<span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<p><strong>基本样式</strong></p>
+<h2 id="createcursor">createCursor()</h2>
 
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-    <span class="nl">height</span><span class="p">:</span> <span class="m">450px</span><span class="p">;</span>
-    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.item</span> <span class="p">{</span>
-    <span class="nl">height</span><span class="p">:</span> <span class="m">450px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.left</span> <span class="p">{</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
-    <span class="nl">background</span><span class="p">:</span> <span class="n">grey</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.right</span> <span class="p">{</span>
-    <span class="nl">background</span><span class="p">:</span> <span class="no">orange</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></tbody></table></div></div>
+<p>这个接口取代了 top 接口，top 接口返回的是最后入住的那个数据，而游标会一直保持最上层的值，这样只需要直接使用游标，就不用去操作栈了。</p>
 
-<h3 id="float-布局">float 布局</h3>
-
-<p><strong>1）使用 BFC 特性</strong></p>
-
-<blockquote>
-  <p>父级使用 overflow:hidden 后会清除 float 的效果，从而把右边挤开。</p>
-</blockquote>
-
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
-    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.left</span> <span class="p">{</span>
-    <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">createCursor</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">defaultValue</span><span class="p">:</span> <span class="nx">T</span><span class="p">):</span> <span class="nx">StackCursor</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">current</span><span class="p">:</span> <span class="nx">defaultValue</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<p><strong>2）传统模式</strong></p>
+<h2 id="isempty">isEmpty()</h2>
 
-<blockquote>
-  <p>使用 margin 把 float 覆盖的区域避开，修改定宽时需要同时修改两个属性。</p>
-</blockquote>
+<p>这个就很简单，就是判断当前索引位置。</p>
 
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.left</span> <span class="p">{</span>
-    <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.right</span> <span class="p">{</span>
-    <span class="nl">margin-left</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">isEmpty</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">index</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span>
 <span class="p">}</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<h3 id="position-布局">position 布局</h3>
+<h2 id="pop">pop()</h2>
 
-<blockquote>
-  <p>和 float 类似，将左栏绝对定位，右栏避开覆盖区域；可以通过父级的 padding 和右栏的 margin 来避开。</p>
-</blockquote>
+<p>接口不难理解，取出当前索引的值交给游标，然后置空当前 valueStack 位置的值，然后索引回退一位。这里有个要点就是为什么不用 delete 去移出数组这个索引，而只是去赋值为 null。个人这样的效率应该比不断 delete 和 push 数组高。而且也占不了多少内存。</p>
 
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
-    <span class="err">//</span> <span class="nl">padding-left</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.left</span> <span class="p">{</span>
-    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
-    <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-    <span class="nl">left</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.right</span> <span class="p">{</span>
-    <span class="nl">margin-left</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">pop</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">cursor</span><span class="p">:</span> <span class="nx">StackCursor</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">fiber</span><span class="p">:</span> <span class="nx">Fiber</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nx">cursor</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">valueStack</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span>
+    <span class="nx">valueStack</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="nx">index</span><span class="o">--</span>
 <span class="p">}</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<h3 id="flex-布局">flex 布局</h3>
+<p>在上面的源码里面还有第二个问题，这个 fiber 参数干嘛用的，这个操蛋的方式需要看编译后的源码才清楚。</p>
 
-<blockquote>
-  <p>根据 flow-grow 的来进行布局，左栏不设置 flex-grow，右栏随意设置 flex-grow。</p>
-</blockquote>
-
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.right</span> <span class="p">{</span>
-    <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<h3 id="table-布局">table 布局</h3>
-
-<blockquote>
-  <p>使用 table 特性，可以直接使用 table 标签，或者是 css 的 table 属性，不推荐使用 table 布局。</p>
-</blockquote>
-
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="n">table</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.item</span> <span class="p">{</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="nb">table-cell</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">pop</span><span class="p">(</span><span class="nx">cursor</span><span class="p">,</span> <span class="nx">fiber</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">{</span>
+            <span class="nx">warningWithoutStack$1</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s1">'Unexpected pop.'</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">fiber</span> <span class="o">!==</span> <span class="nx">fiberStack</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">warningWithoutStack$1</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s1">'Unexpected Fiber popped.'</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">cursor</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">valueStack</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span>
+    <span class="nx">valueStack</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="p">{</span>
+        <span class="nx">fiberStack</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span>
+    <span class="p">}</span>
+    <span class="nx">index</span><span class="o">--</span>
 <span class="p">}</span>
 </code></pre></td></tr></tbody></table></div></div>
 
-<h3 id="grid-布局">grid 布局</h3>
+<p>这时候就发现基础属性里面的 fiberStack 用上了，这个 flowtype 的写法我是真看不懂，这种额外插入的代码是什么鬼。后面 push 的接口也有这个问题。</p>
 
-<blockquote>
-  <p>使用最新的网格布局模式，不过支持率不高。修改 grid-template-columns 的</p>
-</blockquote>
+<h2 id="push">push()</h2>
 
-<div class="language-css highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
-    <span class="nl">display</span><span class="p">:</span> <span class="n">grid</span><span class="p">;</span>
-    <span class="py">grid-template-columns</span><span class="p">:</span> <span class="m">100px</span> <span class="m">1</span><span class="n">fr</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.left</span> <span class="p">{</span>
-    <span class="nl">width</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-    <span class="nl">grid-column</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+<p>加入一个新值，索引向前移以为，依然需要传入游标，游标保存最新值，表示当前 top()取出来的值。传入一个 fiber，表示当前值与某个 fiber 关联，像 React.Context 这些都需要用到栈和 fiber，所以 fiber 这个是跟业务相关。fiber 这个值入栈的表达式在源码里面没有，编译后会出现。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">push</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">cursor</span><span class="p">:</span> <span class="nx">StackCursor</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">T</span><span class="p">,</span> <span class="nx">fiber</span><span class="p">:</span> <span class="nx">Fiber</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">index</span><span class="o">++</span>
+    <span class="nx">valueStack</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">current</span>
+    <span class="nx">cursor</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">value</span>
 <span class="p">}</span>
 </code></pre></td></tr></tbody></table></div></div>
 
@@ -553,18 +525,14 @@
         <div class="post-nav" id="post-nav-id">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/javascript/1900/01/01/link/" rel="next" title="JavaScript中的链">
-                <i class="fa fa-chevron-left"></i> JavaScript中的链
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/javascript/1900/01/01/cache/" rel="prev" title="前端的缓存">
-                前端的缓存 <i class="fa fa-chevron-right"></i>
+              <a href="/react/2018/12/14/recat-ref/" rel="prev" title="React.Ref">
+                React.Ref <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -713,7 +681,7 @@
             
               <div class="post-toc-content">
     <ol class=nav>
-      <li class="nav-item nav-level-3"> <a class="nav-link" href="#float-布局"> <span class="nav-number">1</span> <span class="nav-text">float 布局</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#position-布局"> <span class="nav-number">2</span> <span class="nav-text">position 布局</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#flex-布局"> <span class="nav-number">3</span> <span class="nav-text">flex 布局</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#table-布局"> <span class="nav-number">4</span> <span class="nav-text">table 布局</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#grid-布局"> <span class="nav-number">5</span> <span class="nav-text">grid 布局</span> </a> </li>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#基本的接口"> <span class="nav-number">1</span> <span class="nav-text">基本的接口</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#基本属性"> <span class="nav-number">2</span> <span class="nav-text">基本属性</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#createcursor"> <span class="nav-number">3</span> <span class="nav-text">createCursor()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#isempty"> <span class="nav-number">4</span> <span class="nav-text">isEmpty()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#pop"> <span class="nav-number">5</span> <span class="nav-text">pop()</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#push"> <span class="nav-number">6</span> <span class="nav-text">push()</span> </a> </li>
     </ol>
   </div>
             

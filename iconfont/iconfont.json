@@ -1,0 +1,37 @@
+{
+  "id": "2450910",
+  "name": "tiny",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "911005",
+      "name": "weixin",
+      "font_class": "weixin",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "6050679",
+      "name": "email",
+      "font_class": "email",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "13253820",
+      "name": "mobile",
+      "font_class": "mobile",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "16880989",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    }
+  ]
+}
